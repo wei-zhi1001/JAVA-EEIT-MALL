@@ -13,7 +13,7 @@ public class OrdersDetail {
     @Id
     @Column(name = "OrdersDetailID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ordersDetailID;  //PRIMARY KEY identity(1,1),
+    private Integer ordersDetailID;  //PRIMARY KEY identity(1,1),
 
     @Column(name = "OrderID", insertable = false, updatable = false)
     private int orderID;  //foreign key

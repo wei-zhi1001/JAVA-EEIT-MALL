@@ -15,7 +15,7 @@ public class Orders {
     @Id
     @Column(name = "OrderID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderID;  //PRIMARY KEY identity(1,1),
+    private Integer orderID;  //PRIMARY KEY identity(1,1),
 
     @Column(name = "UserID", insertable = false, updatable = false)
     private int userID;  //foreign key,
