@@ -22,8 +22,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<ThirdParty> orders = new HashSet<>();
 
-    @Column(name = "UserNamexxxx")
-    private String usernamexxxx;
+    @Column(name = "UserName")
+    private String username;
     @Column(name = "Email")
     private String email;
     @Column(name = "Password")
