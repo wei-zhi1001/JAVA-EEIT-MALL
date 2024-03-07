@@ -24,7 +24,7 @@ public class Product {
     private String productName;
 
     // @ManyToOne(fetch = FetchType.LAZY)   //延遲加載
-    @Column(name = "CategoryID", nullable = false)
+    @Column(name = "CategoryID",insertable=false, updatable=false, nullable = false)
     private String categoryID;
 
     @Column(name = "Price", nullable = false)
@@ -63,6 +63,6 @@ public class Product {
     @JoinColumn(name = "CategoryID", nullable = false)
     private Category category;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Product", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductSpec> productSpecs= new HashSet<>();
 }

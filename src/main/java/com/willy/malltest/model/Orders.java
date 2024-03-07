@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -40,11 +41,11 @@ public class Orders {
     @Column(name = "PaymentTime")
     private Date paymentTime;  //datetime可以轉String,
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Orders", cascade = CascadeType.ALL )
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    private Users users;
+    private User users;
 
 }
