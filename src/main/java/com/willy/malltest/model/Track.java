@@ -3,7 +3,7 @@ package com.willy.malltest.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.catalina.User;
+
 
 @Getter
 @Setter
@@ -27,7 +27,7 @@ public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TrackID")
-    private int  trackID;
+    private Integer  trackID;
 
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
