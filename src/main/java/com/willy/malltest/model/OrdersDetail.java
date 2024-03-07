@@ -16,7 +16,7 @@ public class OrdersDetail {
     private Integer ordersDetailID;  //PRIMARY KEY identity(1,1),
 
     @Column(name = "OrderID", insertable = false, updatable = false)
-    private int orderID;  //foreign key
+    private Integer orderID;  //foreign key
 
     @Column(name = "SpecID", insertable = false, updatable = false)
     private String specID;  //foreign key

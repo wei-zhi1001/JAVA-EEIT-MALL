@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -18,18 +19,18 @@ public class Orders {
     private Integer orderID;  //PRIMARY KEY identity(1,1),
 
     @Column(name = "UserID", insertable = false, updatable = false)
-    private int userID;  //foreign key,
+    private Integer userID;  //foreign key,
 
     @Column(name = "OrderDate")
-    private String orderDate;  //datetime可以轉String(?)
+    private Date orderDate;
     @Column(name = "PaymentMethod")
     private String paymentMethod;
     @Column(name = "OrderStatus")
     private String orderStatus;
     @Column(name = "DeliverDate")
-    private String deliverDate;  //datetime可以轉String,
+    private Date deliverDate;
     @Column(name = "PickupDate")
-    private String pickupDate;  //datetime可以轉String,
+    private Date pickupDate;
     @Column(name = "DeliverAddress")
     private String deliverAddress;
     @Column(name = "RecipientName")
@@ -37,7 +38,7 @@ public class Orders {
     @Column(name = "RecipientPhone")
     private String recipientPhone;
     @Column(name = "PaymentTime")
-    private String paymentTime;  //datetime可以轉String,
+    private Date paymentTime;  //datetime可以轉String,
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "Orders", cascade = CascadeType.ALL )
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
