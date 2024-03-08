@@ -15,8 +15,8 @@ public class CustomerFeedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FeedbackID1")
-    private int feedbackID1;
+    @Column(name = "FeedbackID")
+    private Integer feedbackID;
 
     @ManyToOne
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")

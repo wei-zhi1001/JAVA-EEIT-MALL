@@ -12,7 +12,7 @@ public class ThirdParty {
     private String ProviderID1;
     @Column(name = "ProviderName")
     private String ProviderName;
-    @Column(name = "UserID")
+    @Column(name = "UserID",insertable=false, updatable=false)
     private Long UserID;
 
 

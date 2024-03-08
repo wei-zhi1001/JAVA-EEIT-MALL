@@ -13,13 +13,13 @@ public class CartItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CartItemID")
-    private int cartItemId;
+    private Integer cartItemId;
 
-    @Column(name = "UserID", nullable = false)
-    private int userId;
+//    @Column(name = "UserID", nullable = false)
+//    private int userId;
 
     // 假设ProductSpec是一个实体，且SpecID是其主键
-    @Column(name = "SpecID", nullable = false)
+    @Column(name = "SpecID",insertable=false, updatable=false, nullable = false)
     private String specId;
 
     @Column(name = "Quantity", nullable = false)
@@ -30,6 +30,6 @@ public class CartItems {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "SpecID", referencedColumnName = "SpecID")
+    @JoinColumn(name = "SpecID", referencedColumnName = "specID")
     private ProductSpec productSpec;
 }
