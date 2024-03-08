@@ -8,8 +8,8 @@ import lombok.Data;
 @Table(name = "thirdparty")
 public class ThirdParty {
     @Id
-    @Column(name = "ProviderID1")
-    private String ProviderID1;
+    @Column(name = "ProviderID")
+    private String ProviderID;
     @Column(name = "ProviderName")
     private String ProviderName;
     @Column(name = "UserID",insertable=false, updatable=false)
