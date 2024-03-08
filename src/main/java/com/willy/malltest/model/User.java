@@ -22,7 +22,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    private Set<ThirdParty> orders = new HashSet<>();
+    private Set<ThirdParty> thirdParty = new HashSet<>();
 
     @Column(name = "UserName")
     private String username;
