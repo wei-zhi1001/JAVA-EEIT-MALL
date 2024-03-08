@@ -16,7 +16,7 @@ public class ThirdParty {
     private Long UserID;
 
 
-    @ManyToOne // 指定多对一关系
+    @ManyToOne(fetch = FetchType.LAZY) // 指定多对一关系
     @JoinColumn(name = "UserID") // 指定关联的外键列
     private User user; // 指向 User 类的引用
 
