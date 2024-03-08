@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+<div class="container">
+    <h1>請登入</h1>
+
+    <form action="" method="post">
+        <label for="email"><b>email</b></label>
+        <input type="text" id="email" placeholder="Enter email" name="email" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" id="password" placeholder="Enter Password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <br>
+
+    <div th:text="${loginMsg} ? ${loginMsg} "></div>
+
+
+</div>
+</body>
+</html>

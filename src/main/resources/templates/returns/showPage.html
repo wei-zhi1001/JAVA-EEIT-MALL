@@ -5,10 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+<table>
+    <tr><th>ReturnID</th><th>OrderID</th><th>ReturnDate</th></tr>
     <th:block  th:each=" returns :${returnsList}">
         <tr >
             <td th:text="${returns.ReturnID}"></td>
+            <td th:text="${returns.OrderID}"></td>
+            <td th:text="${returns.ReturnDate}"></td>
         </tr>
     </th:block>
+</table>
 </body>
 </html>
