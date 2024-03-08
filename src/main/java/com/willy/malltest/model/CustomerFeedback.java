@@ -1,5 +1,7 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "CustomerFeedback")
+
 public class CustomerFeedback {
 
     @Id
@@ -18,11 +21,13 @@ public class CustomerFeedback {
     @Column(name = "FeedbackID")
     private Integer feedbackID;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
     private User user;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OrderID", referencedColumnName = "OrderID")
     private Orders orders;
 

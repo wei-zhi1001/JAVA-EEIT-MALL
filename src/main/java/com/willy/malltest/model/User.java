@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Users")
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
