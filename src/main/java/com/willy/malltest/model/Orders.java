@@ -40,13 +40,9 @@ public class Orders {
     @Column(name = "RecipientPhone")
     private String recipientPhone;
     @Column(name = "PaymentTime")
-    private Date paymentTime;  //datetime可以轉String,
+    private Date paymentTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    private User users;
 
 }
