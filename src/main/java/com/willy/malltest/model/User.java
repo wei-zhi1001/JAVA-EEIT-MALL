@@ -1,6 +1,5 @@
 package com.willy.malltest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,6 +47,6 @@ public class User {
     @Column(name = "Phone")
     private String Phone;
     @Column(name = "Authentication")
-    private String Authentication;
+    private Integer Authentication;
 
 }
