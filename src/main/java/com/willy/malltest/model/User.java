@@ -18,8 +18,6 @@ public class User {
     @Column(name = "UserID")
     private Long UserID;
 
-
-
     @OneToMany(mappedBy = "user")
     private Set<ThirdParty> thirdParty = new HashSet<>();
 
@@ -49,4 +47,18 @@ public class User {
     @Column(name = "Authentication")
     private Integer Authentication;
 
+    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    private Set<Orders> orders = new HashSet<>();
+    public void add(Orders order) {
+
+        if (order != null) {
+
+            if (orders == null) {
+                orders = new HashSet<>();
+            }
+
+            orders.add(order);
+            order.setUserID(this);
+        }
+    }
 }
