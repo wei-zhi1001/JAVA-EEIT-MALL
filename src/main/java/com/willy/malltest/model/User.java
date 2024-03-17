@@ -11,6 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Users")
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user")
-    private Set<ThirdParty> orders = new HashSet<>();
+    private Set<ThirdParty> thirdParty = new HashSet<>();
 
     @Column(name = "UserName")
     private String username;
@@ -46,6 +47,6 @@ public class User {
     @Column(name = "Phone")
     private String Phone;
     @Column(name = "Authentication")
-    private String Authentication;
+    private Integer Authentication;
 
 }

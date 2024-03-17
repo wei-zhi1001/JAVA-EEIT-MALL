@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,11 +30,13 @@ public class Track {
     @Column(name = "TrackID")
     private Integer  trackID;
 
-    @ManyToOne
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", referencedColumnName = "UserID")
     private User user;
 
-    @ManyToOne
+//    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SpecID", referencedColumnName = "SpecID")
     private ProductSpec productSpec;
 }
