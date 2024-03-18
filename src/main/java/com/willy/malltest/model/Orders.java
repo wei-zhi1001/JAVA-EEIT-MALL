@@ -1,6 +1,5 @@
 package com.willy.malltest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +19,9 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderID;  //PRIMARY KEY identity(1,1),
 
-    @Column(name = "UserID", insertable = false, updatable = false)
-    private Integer userID;  //foreign key,
+    @ManyToOne
+    @JoinColumn(name = "UserID", insertable = false, updatable = false)
+    private User userID;  //foreign key,
 
     @Column(name = "OrderDate")
     private Date orderDate;
@@ -40,13 +40,21 @@ public class Orders {
     @Column(name = "RecipientPhone")
     private String recipientPhone;
     @Column(name = "PaymentTime")
-    private Date paymentTime;  //datetime可以轉String,
+    private Date paymentTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    private User users;
 
+    public void add(OrdersDetail item) {
+
+        if (item != null) {
+            if (ordersDetails == null) {
+                ordersDetails = new HashSet<>();
+            }
+
+            ordersDetails.add(item);
+            item.setOrders(this);
+        }
+    }
 }

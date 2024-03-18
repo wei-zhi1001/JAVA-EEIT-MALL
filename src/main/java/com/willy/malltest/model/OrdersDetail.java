@@ -31,8 +31,4 @@ public class OrdersDetail {
     @JoinColumn(name = "OrderID", referencedColumnName = "OrderID")
     private Orders orders;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SpecID", referencedColumnName = "SpecID")
-    private ProductSpec productSpec;
-
 }
