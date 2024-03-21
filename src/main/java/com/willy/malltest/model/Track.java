@@ -17,18 +17,22 @@ public class Track {
 //    @Column(name = "TrackID")
 //    private int  trackID;
 //
-//    @Column(name = "SpecID")
-//    private String specID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TrackID")
+    private Integer  trackID;
+
+    @Column(name = "SpecID")
+    private String specID;
+
+    @Column(name = "UserID")
+    private Long userID;
 
 
 //    @ManyToOne
 //    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
 //    private Users users;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TrackID")
-    private Integer  trackID;
 
 
 //    @ManyToOne(fetch = FetchType.LAZY)
