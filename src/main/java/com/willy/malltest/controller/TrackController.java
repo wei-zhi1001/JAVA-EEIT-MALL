@@ -21,9 +21,10 @@ public class TrackController {
     public List<TrackDTO> getAllTrack(){
         return trackService.getAllTrackDTOs();
     }
+
+
     @PostMapping("/creat/track")
     public Track creatTrack(@RequestBody Track track){
-        System.out.println("Dadsadasd");
         Long userId = track.getUserID();
         String specID = track.getSpecID();
         System.out.println(userId);

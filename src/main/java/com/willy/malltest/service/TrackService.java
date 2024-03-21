@@ -58,7 +58,7 @@ public class TrackService {
 //            return null;
 //        }
         // 例如，創建新的 Track 對象並保存到資料庫中，然後返回相應的 TrackDTO 對象
-        System.out.println("56778");
+
 
         Track newTrack = new Track(); // 創建新的 Track 對象
 //        newTrack.setUserID(userId);
@@ -78,3 +78,39 @@ public class TrackService {
     }
     //商品名稱 價格 圖片
 }
+
+//    @Transactional
+//    public Track addTrack(String specID, Long userId) {
+//        System.out.println("56778");
+//
+//        // 創建新的 Track 對象
+//        Track newTrack = new Track();
+//        newTrack.setUserID(userId);
+//        newTrack.setSpecID(specID);
+//
+//        // 根據 userId 查找相應的 User 實體並設置給新 Track 對象
+//        User user = up.findById(userId).orElse(null);
+//        if (user != null) {
+//            newTrack.setUser(user);
+//        } else {
+//            // 如果找不到對應的 User，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+//            // 此處僅示例，您可以根據您的需求進行處理
+//            System.out.println("找不到對應的使用者");
+//            return null;
+//        }
+//
+//        // 根據 specID 查找相應的 ProductSpec 實體並設置給新 Track 對象
+//        ProductSpec productSpec = pr.findById(specID).orElse(null);
+//        if (productSpec != null) {
+//            newTrack.setProductSpec(productSpec);
+//        } else {
+//            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+//            // 此處僅示例，您可以根據您的需求進行處理
+//            System.out.println("找不到對應的產品規格");
+//            return null;
+//        }
+//
+//        System.out.println("1233");
+//        return trackRepository.save(newTrack); // 保存到資料庫中
+//    }
+
