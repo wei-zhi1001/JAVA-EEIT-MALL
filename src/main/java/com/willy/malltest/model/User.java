@@ -1,12 +1,13 @@
 package com.willy.malltest.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,9 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
-    private Long UserID;
-
-
+    private Long userID;
 
     @OneToMany(mappedBy = "user")
     private Set<ThirdParty> thirdParty = new HashSet<>();
@@ -48,6 +47,27 @@ public class User {
     @Column(name = "Phone")
     private String Phone;
     @Column(name = "Authentication")
-    private String Authentication;
+    private Integer Authentication;
 
+    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    private Set<Orders> orders = new HashSet<>();
+
+
+    //test
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Track> Track;
+
+    public void add(Orders order) {
+
+        if (order != null) {
+
+            if (orders == null) {
+                orders = new HashSet<>();
+            }
+
+            orders.add(order);
+            order.setUserID(this);
+        }
+    }
 }
