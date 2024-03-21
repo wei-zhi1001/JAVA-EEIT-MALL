@@ -1,9 +1,11 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -40,4 +42,9 @@ public class ProductSpec {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductID")
     private Product product;
+
+    //test
+    @OneToMany(mappedBy = "productSpec")
+    @JsonIgnore
+    private List<Track> track;
 }

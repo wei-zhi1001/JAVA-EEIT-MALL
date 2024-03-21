@@ -36,12 +36,17 @@ public class Track {
 //    private User user;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SpecID", referencedColumnName = "SpecID")
-    private ProductSpec productSpec;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "SpecID", referencedColumnName = "SpecID")
+//    private ProductSpec productSpec;
 
     //test
     @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
+
+    //test
+    @ManyToOne
+    @JoinColumn(name = "specID")
+    private ProductSpec productSpec;
 }

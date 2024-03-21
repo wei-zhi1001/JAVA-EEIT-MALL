@@ -21,16 +21,6 @@ public class CustomerFeedback {
     @Column(name = "FeedbackID")
     private Integer feedbackID;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID", referencedColumnName = "UserID")
-    private User user;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OrderID", referencedColumnName = "OrderID")
-    private Orders orders;
-
     @Column(name = "Type")
     private String type;
 
@@ -43,4 +33,14 @@ public class CustomerFeedback {
     @Column(name = "CustomerFeedbackStatus")
     private String customerFeedbackStatus;
 
+
+    //@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "userID")
+    private User user;
+
+    //@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "orderID")
+    private Orders orders;
 }

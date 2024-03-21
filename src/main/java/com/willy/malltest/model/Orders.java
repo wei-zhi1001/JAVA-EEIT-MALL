@@ -1,11 +1,13 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -45,6 +47,10 @@ public class Orders {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
 
+    //test
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<CustomerFeedback> customerFeedback;
 
     public void add(OrdersDetail item) {
 

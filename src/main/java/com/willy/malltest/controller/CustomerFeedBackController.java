@@ -1,6 +1,7 @@
 package com.willy.malltest.controller;
 
 
+import com.willy.malltest.dto.CustomerFeedbackDTO;
 import com.willy.malltest.model.CustomerFeedback;
 import com.willy.malltest.service.CustomerFeedBackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class CustomerFeedBackController {
     private CustomerFeedBackService customerFeedBackService;
 
     @GetMapping("/feedbacks")
-    public List<CustomerFeedback> getAllFeedbacks(){
-        return customerFeedBackService.getAllFeedbacks();
+    public List<CustomerFeedbackDTO> getAllFeedbacks(){
+        return customerFeedBackService.getAllFeedbacksDTO();
     }
 
 }
