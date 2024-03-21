@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -40,4 +42,7 @@ public class ProductSpec {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductID")
     private Product product;
-}
+
+    @OneToMany(mappedBy = "productSpec",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    private Set<ProductPhoto> productPhotos = new HashSet<>();}
