@@ -34,12 +34,10 @@ public class CustomerFeedback {
     private String customerFeedbackStatus;
 
 
-    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
 
-    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "orderID")
     private Orders orders;

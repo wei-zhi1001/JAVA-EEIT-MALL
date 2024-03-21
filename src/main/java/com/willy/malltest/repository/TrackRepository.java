@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface TrackRepository extends JpaRepository<Track, Integer> {
 
     @Query(value = "SELECT * FROM Track WHERE SpecID = :specId AND UserID = :userId", nativeQuery = true)
-    CustomerFeedback findTrackByspecIdAnduserId(@Param("specId") String specId, @Param("userId") Long userId);
+    Track findTrackByspecIdAnduserId(@Param("specId") String specId, @Param("userId") Long userId);
 
 
 

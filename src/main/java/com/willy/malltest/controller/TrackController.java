@@ -23,10 +23,10 @@ public class TrackController {
     }
 
 
-    @PostMapping("/creat/track")
-    public Track creatTrack(@RequestBody Track track){
-        Long userId = track.getUserID();
-        String specID = track.getSpecID();
+    @PostMapping("/create/track")
+    public Track creatTrack(@RequestBody TrackDTO trackDTO){
+        Long userId = trackDTO.getUserID();
+        String specID = trackDTO.getSpecID();
         System.out.println(userId);
         System.out.println(specID);
         return trackService.addTrack(specID,userId);

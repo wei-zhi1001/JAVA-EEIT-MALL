@@ -1,6 +1,7 @@
 package com.willy.malltest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "ProductSpec")
+@JsonIgnoreProperties({"product"})  // 忽略代理對象中的 product 屬性
 public class ProductSpec {
 
     @Id
@@ -27,24 +29,18 @@ public class ProductSpec {
     @Column(name = "StockQuantity", nullable = false)
     private int stockQuantity;
 
-    @Column(name = "PhotoFile1", nullable = false)
-    private String photoFile1;
-
-    @Column(name = "PhotoFile2")
-    private String photoFile2;
-
-    @Column(name = "PhotoFile3")
-    private String photoFile3;
-
-    @Column(name = "PhotoFile4")
-    private String photoFile4;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductID")
     private Product product;
 
     //test
-    @OneToMany(mappedBy = "productSpec")
+    @OneToMany(mappedBy = "productSpec",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Track> track;
+
+    //test
+    @OneToMany(mappedBy = "productPhotoSpec",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<ProductPhoto> productPhoto;
 }
