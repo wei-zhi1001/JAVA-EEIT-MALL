@@ -1,6 +1,7 @@
 package com.willy.malltest.controller;
 
 import com.willy.malltest.dto.TrackDTO;
+import com.willy.malltest.dto.TrackShowDTO;
 import com.willy.malltest.model.Track;
 import com.willy.malltest.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class TrackController {
     @GetMapping("/track")
     public List<TrackDTO> getAllTrack(){
         return trackService.getAllTrackDTOs();
+    }
+
+    @GetMapping("/getshow/track")
+    public List<TrackShowDTO> getShowTrackDTOs(@RequestParam Long userId){
+        return trackService.getShowTrackDTOs(userId);
     }
 
 

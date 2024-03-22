@@ -13,6 +13,7 @@ public interface TrackRepository extends JpaRepository<Track, Integer> {
     @Query(value = "SELECT * FROM Track WHERE SpecID = :specId AND UserID = :userId", nativeQuery = true)
     Track findTrackByspecIdAnduserId(@Param("specId") String specId, @Param("userId") Long userId);
 
-
-
+//
+//    @Query(value = "SELECT * FROM Track WHERE UserID = :userId", nativeQuery = true)
+//    Long findUserIdBy(@Param("userId") Long userId);
 }

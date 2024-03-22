@@ -1,6 +1,8 @@
 package com.willy.malltest.service.impl;
 
 import com.willy.malltest.dto.TrackDTO;
+import com.willy.malltest.dto.TrackShowDTO;
+import com.willy.malltest.model.ProductPhoto;
 import com.willy.malltest.model.ProductSpec;
 import com.willy.malltest.model.Track;
 import com.willy.malltest.model.User;
@@ -39,6 +41,38 @@ public class TrackServiceImpl implements TrackService {
         }
         return tracksdto;
     }
+
+
+    //test
+    @Override
+    public List<TrackShowDTO> getShowTrackDTOs(Long userId) {
+        List<Track> tracks = usersRepository.findById(userId).get().getTrack();
+
+        List<TrackShowDTO> trackShowDTOs = new ArrayList<>(); // 初始化空的 TrackShowDTO 列表
+
+        for (Track track : tracks) { // 遍历每个 Track 对象
+            TrackShowDTO dto = new TrackShowDTO();
+            dto.setTrackID(track.getTrackID());
+            dto.setUserID(track.getUser().getUserID());
+            dto.setSpecID(track.getProductSpec().getSpecID());
+
+            // 获取与 ProductSpec 关联的 ProductPhoto 对象列表
+            List<ProductPhoto> productPhotos = track.getProductSpec().getProductPhoto();
+            System.out.println(productPhotos);
+            if (!productPhotos.isEmpty()) {
+                // 取第一个 ProductPhoto 对象的 photoFile 属性，假设一对多关系中只有一个 ProductPhoto
+                ProductPhoto productPhoto = productPhotos.get(0);
+                dto.setPhotoFile(productPhoto.getPhotoFile());
+                System.out.println(productPhoto);
+            }
+
+            trackShowDTOs.add(dto); // 将转换后的 TrackShowDTO 加入到列表中
+        }
+
+        return trackShowDTOs;
+    }
+
+
 
     @Transactional
     public Track addTrack(String specID, Long userId) {
