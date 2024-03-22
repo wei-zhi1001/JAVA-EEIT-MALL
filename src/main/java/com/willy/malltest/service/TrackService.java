@@ -10,4 +10,6 @@ public interface TrackService {
     public List<TrackDTO> getAllTrackDTOs();
 
     public Track addTrack(String specID, Long userId);
+
+    public void deleteTrack(String specID, Long userId);
 }

@@ -27,4 +27,11 @@ public class TrackController {
         return trackService.addTrack(specID,userId);
 
     }
+
+    @DeleteMapping("/delete/track")
+    public void deleteTrack(@RequestBody TrackDTO trackDTO){
+        Long userId = trackDTO.getUserID();
+        String specID = trackDTO.getSpecID();
+        trackService.deleteTrack(specID,userId);
+    }
 }
