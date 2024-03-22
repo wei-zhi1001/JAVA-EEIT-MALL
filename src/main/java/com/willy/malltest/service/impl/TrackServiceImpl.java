@@ -42,7 +42,6 @@ public class TrackServiceImpl implements TrackService {
         return tracksdto;
     }
 
-
     //test
     @Override
     public List<TrackShowDTO> getShowTrackDTOs(Long userId) {
@@ -68,8 +67,6 @@ public class TrackServiceImpl implements TrackService {
 
         return trackShowDTOs;
     }
-
-
 
     @Transactional
     public Track addTrack(String specID, Long userId) {

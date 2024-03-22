@@ -81,15 +81,6 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         customerFeedback.setDescription(customerFeedbackDTO.getDescription());
         customerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
 
-
-        System.out.println(customerFeedback.getDescription());
-        System.out.println(customerFeedback.getType());
-        System.out.println(customerFeedback.getFeedbackDate());
-        System.out.println(customerFeedback.getUser().getUserID());
-        System.out.println(customerFeedback.getFeedbackID());
-        System.out.println(customerFeedback.getOrders().getOrderID());
-        System.out.println(customerFeedback.getCustomerFeedbackStatus());
-
         return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
 
     }
