@@ -7,10 +7,7 @@ import com.willy.malltest.model.CustomerFeedback;
 import com.willy.malltest.model.Track;
 import com.willy.malltest.service.CusotmerFeedback;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,8 +23,13 @@ public class CustomerFeedBackController {
     }
 
     @PostMapping("/create/customerdeedback")
-    public CustomerFeedback creatTrack(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
+    public CustomerFeedback createCustomerFeedbacks(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
         return cusotmerFeedback.addFeedbacksDTO(customerFeedbackDTO);
+    }
+
+    @DeleteMapping("/delete/customerdeedback")
+    public void deleteCustomerFeedbacks(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
+        cusotmerFeedback.deleteCusotmerFeedback(customerFeedbackDTO);
     }
 
 }

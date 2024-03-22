@@ -63,7 +63,6 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         Orders orders = ordersRepository.findById(customerFeedbackDTO.getOrderID()).get();
         if (orders != null) {
             customerFeedback.setOrders(orders);
-            System.out.println("5616116");
         } else {
             // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
             // 此處僅示例，您可以根據您的需求進行處理
@@ -83,5 +82,41 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
         return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
 
+    }
+
+    @Override
+    public void deleteCusotmerFeedback(CustomerFeedbackDTO customerFeedbackDTO) {
+
+        CustomerFeedback customerFeedback = new CustomerFeedback();
+
+        // 根據 userId 查找相應的 User 實體並設置給新 Track 對象
+        User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
+        if (user != null) {
+            customerFeedback.setUser(user);
+        } else {
+            // 如果找不到對應的 User，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的使用者");
+            return;
+        }
+
+        Orders orders = ordersRepository.findById(customerFeedbackDTO.getOrderID()).get();
+        if (orders != null) {
+            customerFeedback.setOrders(orders);
+        } else {
+            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的產品規格");
+            return;
+        }
+
+        CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
+        if (existingcustomerFeedback == null) {
+            // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
+            System.out.println("相同的 Track 已存在");
+            return;
+        }
+
+        customerFeedbackRepository.delete(existingcustomerFeedback);
     }
 }

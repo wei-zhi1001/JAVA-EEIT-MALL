@@ -10,4 +10,6 @@ public interface CusotmerFeedback {
     public List<CustomerFeedbackDTO> getAllFeedbacksDTO();
 
     public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
+
+    public void deleteCusotmerFeedback(CustomerFeedbackDTO customerFeedbackDTO);
 }
