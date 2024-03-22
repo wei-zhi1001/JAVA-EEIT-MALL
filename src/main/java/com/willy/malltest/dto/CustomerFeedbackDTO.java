@@ -12,7 +12,7 @@ public class CustomerFeedbackDTO {
     private Long userID;
     private Integer orderID;
     private String Type;
-    private Date feedbackDate;
     private String Description;
+    private Date feedbackDate;
     private String CustomerFeedbackStatus;
 }

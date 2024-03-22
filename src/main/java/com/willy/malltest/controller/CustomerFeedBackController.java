@@ -2,27 +2,32 @@ package com.willy.malltest.controller;
 
 
 import com.willy.malltest.dto.CustomerFeedbackDTO;
+import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.CustomerFeedback;
-import com.willy.malltest.service.CustomerFeedBackService;
+import com.willy.malltest.model.Track;
+import com.willy.malltest.service.CusotmerFeedback;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CustomerFeedBackController {
 
     @Autowired
-    private CustomerFeedBackService customerFeedBackService;
+    private CusotmerFeedback cusotmerFeedback;
 
     @GetMapping("/feedbacks")
     public List<CustomerFeedbackDTO> getAllFeedbacks(){
-        return customerFeedBackService.getAllFeedbacksDTO();
+        return cusotmerFeedback.getAllFeedbacksDTO();
+    }
+
+    @PostMapping("/create/customerdeedback")
+    public CustomerFeedback creatTrack(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
+        return cusotmerFeedback.addFeedbacksDTO(customerFeedbackDTO);
     }
 
 }

@@ -1,9 +1,7 @@
 package com.willy.malltest.controller;
 
 
-import com.willy.malltest.model.CustomerFeedback;
 import com.willy.malltest.model.Product;
-import com.willy.malltest.service.CustomerFeedBackService;
 import com.willy.malltest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -25,13 +25,12 @@ public class TrackController {
         return trackService.getShowTrackDTOs(userId);
     }
 
-
     @PostMapping("/create/track")
     public Track creatTrack(@RequestBody TrackDTO trackDTO){
         Long userId = trackDTO.getUserID();
         String specID = trackDTO.getSpecID();
-        return trackService.addTrack(specID,userId);
 
+        return trackService.addTrack(specID,userId);
     }
 
     @DeleteMapping("/delete/track")
