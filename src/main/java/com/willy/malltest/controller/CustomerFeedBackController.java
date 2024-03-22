@@ -27,6 +27,11 @@ public class CustomerFeedBackController {
         return cusotmerFeedback.addFeedbacksDTO(customerFeedbackDTO);
     }
 
+    @PutMapping("/update/customerdeedback")
+    public CustomerFeedback updateCustomerFeedbacks(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
+        return cusotmerFeedback.updateFeedbacksDTO(customerFeedbackDTO);
+    }
+
     @DeleteMapping("/delete/customerdeedback")
     public void deleteCustomerFeedbacks(@RequestBody CustomerFeedbackDTO customerFeedbackDTO){
         cusotmerFeedback.deleteCusotmerFeedback(customerFeedbackDTO);

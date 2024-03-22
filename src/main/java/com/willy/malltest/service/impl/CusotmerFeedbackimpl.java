@@ -52,7 +52,6 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
         if (user != null) {
             customerFeedback.setUser(user);
-            System.out.println("196191");
         } else {
             // 如果找不到對應的 User，您可能希望進行錯誤處理或者返回 null 或者拋出異常
             // 此處僅示例，您可以根據您的需求進行處理
@@ -81,6 +80,46 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         customerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
 
         return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
+
+    }
+
+
+    @Transactional
+    public CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO){
+        CustomerFeedback customerFeedback = new CustomerFeedback();
+
+        CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
+        if (existingcustomerFeedback == null) {
+            // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
+            System.out.println("相同的 Track 已存在");
+            return null;
+        }
+
+        User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
+        if (user != null) {
+            existingcustomerFeedback.setUser(user);
+        } else {
+            // 如果找不到對應的 User，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的使用者");
+            return null;
+        }
+
+        Orders orders = ordersRepository.findById(customerFeedbackDTO.getOrderID()).get();
+        if (orders != null) {
+            existingcustomerFeedback.setOrders(orders);
+        } else {
+            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的產品規格");
+            return null;
+        }
+
+        existingcustomerFeedback.setType(customerFeedbackDTO.getType());
+        existingcustomerFeedback.setDescription(customerFeedbackDTO.getDescription());
+        existingcustomerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
+
+        return customerFeedbackRepository.save(existingcustomerFeedback); // 保存到資料庫中
 
     }
 

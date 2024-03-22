@@ -13,7 +13,6 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Users")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +49,7 @@ public class User {
     private Integer Authentication;
 
     @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Orders> orders = new HashSet<>();
 
 

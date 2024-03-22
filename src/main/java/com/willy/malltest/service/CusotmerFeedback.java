@@ -11,5 +11,7 @@ public interface CusotmerFeedback {
 
     public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
 
+    public CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
+
     public void deleteCusotmerFeedback(CustomerFeedbackDTO customerFeedbackDTO);
 }

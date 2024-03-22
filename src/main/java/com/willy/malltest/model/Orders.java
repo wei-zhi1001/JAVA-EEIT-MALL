@@ -48,7 +48,7 @@ public class Orders {
     private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
 
     //test
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orders")
     @JsonIgnore
     private List<CustomerFeedback> customerFeedback;
 
