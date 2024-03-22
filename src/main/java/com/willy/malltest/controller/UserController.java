@@ -1,80 +1,98 @@
 package com.willy.malltest.controller;
 
 
+import com.willy.malltest.dto.UserDto;
 import com.willy.malltest.model.User;
+import com.willy.malltest.service.MailService;
+import com.willy.malltest.service.MailServiceImpl;
 import com.willy.malltest.service.UserService;
+import com.willy.malltest.service.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.SimpleDateFormat;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
-@Controller
+@RestController
+@RequestMapping("/user")
+@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173/", "http://127.0.0.1:5173" })
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/register")
-    public String goRegister() {
-        return "users/registerPage";
-    }
+    @Autowired
+    private MailService mailService;
 
-    @GetMapping("/users/login")
-    public String goLoginPage() {
-        return "users/loginPage";
-    }
 
-    @PostMapping("/users/login")
-    public String postLogin(
+    @RequestMapping("/login")
+    public UserDto login(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
-            Model model, HttpSession httpSession) {
+            HttpSession session) {
 
-        User result = userService.checkLogin(email, password);
+        UserDto result = userService.login(email, password);
 
         if(result != null) {
-            httpSession.setAttribute("loginUsername", result.getUsername());
-            httpSession.setAttribute("loginUserId", result.getUserID());
-            model.addAttribute("loginMsg", "登入成功");
+            userService.updateLastloginTime(result.getUserID());
+            session.setAttribute("loggedInUser", result);
         }else {
-            model.addAttribute("loginMsg", "帳號密碼錯誤，請重新輸入");
+            throw new RuntimeException("登入失敗，帳號或密碼錯誤");
         }
 
-        return "users/loginPage";
+        return result;
     }
 
-    @PostMapping("/users/register")
-    public String postRegister(
+    @RequestMapping("/logout")
+    public boolean logout(HttpSession session) {
+        session.invalidate();
+        return true;
+    }
+
+    @PostMapping("/register")
+    public User register(
             @RequestParam("name") String username,
             @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            Model model){
+            @RequestParam("phone") String phone,
+            @RequestParam("password") String password){
 
         boolean isExist = userService.checkIfUsernameExist(email);
 
         if(isExist) {
-            model.addAttribute("errorMsg", "已經有此帳號，請重新輸入");
+            throw new RuntimeException("此帳號已註冊");
+
         }else {
             User newUsers = new User();
             newUsers.setUsername(username);
             newUsers.setEmail(email);
+            newUsers.setPhone(phone);
             newUsers.setPassword(password);
-            newUsers.setAuthentication("1");
+            newUsers.setAuthentication(1);
 
             Date today = new Date();
             newUsers.setRegisterDate(today);
             newUsers.setLastLoginTime(today);
 
             userService.addUsers(newUsers);
-            model.addAttribute("okMsg", "註冊成功");
+            return newUsers;
         }
-
-        return "users/registerPage";
     }
+    @RequestMapping("/check")
+    public boolean checkLogin(HttpSession session) {
+        UserDto loggedInMember = (UserDto) session.getAttribute("loggedInMember");
+
+        return !Objects.isNull(loggedInMember);
+    }
+
+    @RequestMapping("/mail/pwd")
+    public void sendPassword(String receiver) {
+        mailService.sendPassword(receiver);
+
+
+
+    }
+
 }
