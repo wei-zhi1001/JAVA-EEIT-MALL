@@ -58,14 +58,11 @@ public class TrackServiceImpl implements TrackService {
 
             // 获取与 ProductSpec 关联的 ProductPhoto 对象列表
             List<ProductPhoto> productPhotos = track.getProductSpec().getProductPhoto();
-            System.out.println(productPhotos);
             if (!productPhotos.isEmpty()) {
                 // 取第一个 ProductPhoto 对象的 photoFile 属性，假设一对多关系中只有一个 ProductPhoto
                 ProductPhoto productPhoto = productPhotos.get(0);
                 dto.setPhotoFile(productPhoto.getPhotoFile());
-                System.out.println(productPhoto);
             }
-
             trackShowDTOs.add(dto); // 将转换后的 TrackShowDTO 加入到列表中
         }
 
