@@ -62,6 +62,8 @@ public class TrackServiceImpl implements TrackService {
                 ProductPhoto productPhoto = productPhotos.get(0);
                 dto.setPhotoFile(productPhoto.getPhotoFile());
             }
+            dto.setProductName(track.getProductSpec().getProduct().getProductName());
+            dto.setProductPrice(track.getProductSpec().getProduct().getPrice());
             trackShowDTOs.add(dto); // 将转换后的 TrackShowDTO 加入到列表中
         }
 

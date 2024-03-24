@@ -8,11 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CustomerFeedbackRepository extends JpaRepository<CustomerFeedback, Integer> {
 
     @Query(value = "SELECT * FROM CustomerFeedback WHERE OrderID = :orderID AND UserID = :userId", nativeQuery = true)
     CustomerFeedback findCustomerFeedbackByByordersIdAnduserId(@Param("orderID") Integer orderID, @Param("userId") Long userId);
+
+    @Query(value = "SELECT * FROM CustomerFeedback WHERE UserID = :userId", nativeQuery = true)
+    List<CustomerFeedback> findCustomerFeedbackByduserId(@Param("userId") Long userId);
 
     @Modifying
     @Query(value = "UPDATE CustomerFeedback SET Type = :type, Description = :description, CustomerFeedbackStatus = :customerFeedbackStatus WHERE FeedbackID = :feedbackID", nativeQuery = true)

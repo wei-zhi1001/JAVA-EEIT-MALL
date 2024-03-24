@@ -9,6 +9,8 @@ public interface CusotmerFeedback {
 
     public List<CustomerFeedbackDTO> getAllFeedbacksDTO();
 
+    public List<CustomerFeedbackDTO> getShowFeedbacksDTO(Long userId);
+
     public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
 
     public CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);

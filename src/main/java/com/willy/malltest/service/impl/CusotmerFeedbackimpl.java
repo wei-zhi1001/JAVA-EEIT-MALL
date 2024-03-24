@@ -44,6 +44,26 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         return customerFeedbacksDTO;
     }
 
+    @Override
+    public List<CustomerFeedbackDTO> getShowFeedbacksDTO(Long userId) {
+        List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
+        List<CustomerFeedbackDTO> customerFeedbacksDTO = new ArrayList<>(); // 初始化空的 TrackDTO 列表
+
+        for (CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
+            CustomerFeedbackDTO dto = new CustomerFeedbackDTO();
+            dto.setFeedbackID(customerFeedback.getFeedbackID());
+            dto.setUserID(customerFeedback.getUser().getUserID());
+            dto.setOrderID(customerFeedback.getOrders().getOrderID());
+            dto.setType(customerFeedback.getType());
+            dto.setFeedbackDate(customerFeedback.getFeedbackDate());
+            dto.setDescription(customerFeedback.getDescription());
+            dto.setCustomerFeedbackStatus(customerFeedback.getCustomerFeedbackStatus());
+            customerFeedbacksDTO.add(dto); // 將轉換後的 TrackDTO 加入到列表中
+        }
+        return customerFeedbacksDTO;
+    }
+
+
     @Transactional
     public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO) {
 

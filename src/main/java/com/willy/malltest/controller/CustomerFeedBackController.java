@@ -6,6 +6,7 @@ import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.CustomerFeedback;
 import com.willy.malltest.model.Track;
 import com.willy.malltest.service.CusotmerFeedback;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,11 @@ public class CustomerFeedBackController {
     @GetMapping("/feedbacks")
     public List<CustomerFeedbackDTO> getAllFeedbacks(){
         return cusotmerFeedback.getAllFeedbacksDTO();
+    }
+
+    @GetMapping("/feedbacks/customerdeedbacks")
+    public List<CustomerFeedbackDTO> getshowFeedbacks(@RequestParam ("userId") Long userId){
+        return cusotmerFeedback.getShowFeedbacksDTO(userId);
     }
 
     @PostMapping("/create/customerdeedback")
