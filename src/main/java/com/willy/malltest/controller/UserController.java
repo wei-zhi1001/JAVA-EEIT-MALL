@@ -4,9 +4,7 @@ package com.willy.malltest.controller;
 import com.willy.malltest.dto.UserDto;
 import com.willy.malltest.model.User;
 import com.willy.malltest.service.MailService;
-import com.willy.malltest.service.MailServiceImpl;
 import com.willy.malltest.service.UserService;
-import com.willy.malltest.service.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -88,11 +86,17 @@ public class UserController {
     }
 
     @RequestMapping("/mail/pwd")
-    public void sendPassword(String receiver) {
-        mailService.sendPassword(receiver);
+    public void sendPassword(@RequestParam("email") String email,
+                             @RequestParam("phone") String phone) {
+        mailService.sendPassword(email, phone);
 
+    }
 
+    @RequestMapping("mail/verify")
+    public void sendVerifyCode(@RequestParam("email") String email,
+                               @RequestParam("verificationCode") String verificationCode) {
 
+        mailService.sendVerifyCode(email, verificationCode);
     }
 
 }
