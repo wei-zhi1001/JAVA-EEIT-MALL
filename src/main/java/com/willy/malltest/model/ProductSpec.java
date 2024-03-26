@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,18 +26,8 @@ public class ProductSpec {
     @Column(name = "StockQuantity", nullable = false)
     private int stockQuantity;
 
-    @Column(name = "PhotoFile1", nullable = false)
-    private String photoFile1;
 
-    @Column(name = "PhotoFile2")
-    private String photoFile2;
-
-    @Column(name = "PhotoFile3")
-    private String photoFile3;
-
-    @Column(name = "PhotoFile4")
-    private String photoFile4;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductID")
     private Product product;

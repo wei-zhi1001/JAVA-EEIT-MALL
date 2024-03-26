@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,9 +24,8 @@ public class Product {
     @Column(name = "ProductName", nullable = false)
     private String productName;
 
-    // @ManyToOne(fetch = FetchType.LAZY)   //延遲加載
-    @Column(name = "CategoryID",insertable=false, updatable=false, nullable = false)
-    private String categoryID;
+//    @Column(name = "CategoryID", nullable = false)
+//    private String categoryID;
 
     @Column(name = "Price", nullable = false)
     private int price;
@@ -48,8 +48,8 @@ public class Product {
     @Column(name = "Memory")
     private String memory;
 
-    @Column(name = "Disk")
-    private String disk;
+    @Column(name = "ProductDisk")
+    private String productDisk;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "SetupDate", nullable = false)
@@ -59,9 +59,10 @@ public class Product {
     @Column(name = "ModifyDate", nullable = false)
     private Date modifyDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)   //延遲加載
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY) //延遲加載
     @JoinColumn(name = "CategoryID", nullable = false)
-    private Category category;
+    private Category Category;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductSpec> productSpecs= new HashSet<>();
