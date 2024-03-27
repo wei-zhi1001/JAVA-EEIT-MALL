@@ -13,13 +13,13 @@ import java.util.List;
 @Repository
 public interface CustomerFeedbackRepository extends JpaRepository<CustomerFeedback, Integer> {
 
-    @Query(value = "SELECT * FROM CustomerFeedback WHERE OrderID = :orderID AND UserID = :userId", nativeQuery = true)
+    @Query(value = "SELECT * FROM customer_feedback WHERE order_id = :orderID AND user_id = :userId", nativeQuery = true)
     CustomerFeedback findCustomerFeedbackByByordersIdAnduserId(@Param("orderID") Integer orderID, @Param("userId") Long userId);
 
-    @Query(value = "SELECT * FROM CustomerFeedback WHERE UserID = :userId", nativeQuery = true)
+    @Query(value = "SELECT * FROM customer_feedback WHERE user_id = :userId", nativeQuery = true)
     List<CustomerFeedback> findCustomerFeedbackByduserId(@Param("userId") Long userId);
 
     @Modifying
-    @Query(value = "UPDATE CustomerFeedback SET Type = :type, Description = :description, CustomerFeedbackStatus = :customerFeedbackStatus WHERE FeedbackID = :feedbackID", nativeQuery = true)
+    @Query(value = "UPDATE customer_feedback SET type = :type, description = :description, customer_feedback_status = :customerFeedbackStatus WHERE feedback_id = :feedbackID", nativeQuery = true)
     void updateCustomerFeedback(@Param("type") String type, @Param("description") String description, @Param("customerFeedbackStatus") String customerFeedbackStatus, @Param("feedbackID") Integer feedbackID);
 }

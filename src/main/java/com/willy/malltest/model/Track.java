@@ -8,19 +8,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Track")
+@Table(name = "track")
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TrackID")
+    @Column(name = "track_id")
     private Integer  trackID;
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "specID")
+    @JoinColumn(name = "spec_id")
     private ProductSpec productSpec;
 }

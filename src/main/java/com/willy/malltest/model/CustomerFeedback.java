@@ -13,30 +13,30 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "CustomerFeedback")
+@Table(name = "customer_feedback")
 
 public class CustomerFeedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FeedbackID")
+    @Column(name = "feedback_id")
     private Integer feedbackID;
 
-    @Column(name = "Type")
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
 //    @Column(name = "FeedbackDate")
 //    private Date feedbackDate;
 
-    @Column(name = "CustomerFeedbackStatus")
+    @Column(name = "customer_feedback_status")
     private String customerFeedbackStatus;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss EE") // 在 Java 環境內的時間格式(輸入時調整)
-    @Column(name = "FeedbackDate")
+    @Column(name = "feedback_date")
     private Date feedbackDate;
 
     @PrePersist // 在物件轉換到 Persistent 狀態以前，做這個 function
@@ -47,10 +47,10 @@ public class CustomerFeedback {
     }
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "orderID")
+    @JoinColumn(name = "order_id")
     private Orders orders;
 }

@@ -7,28 +7,28 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "OrdersDetail")
+@Table(name = "orders_detail")
 public class OrdersDetail {
 
     @Id
-    @Column(name = "OrdersDetailID")
+    @Column(name = "orders_detail_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ordersDetailID;  //PRIMARY KEY identity(1,1),
 
-    @Column(name = "OrderID", insertable = false, updatable = false)
+    @Column(name = "order_id", insertable = false, updatable = false)
     private Integer orderID;  //foreign key
 
-    @Column(name = "SpecID", insertable = false, updatable = false)
+    @Column(name = "spec_id", insertable = false, updatable = false)
     private String specID;  //foreign key
 
-    @Column(name = "Quantity")
+    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "Price")
+    @Column(name = "price")
     private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OrderID", referencedColumnName = "OrderID")
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Orders orders;
 
 }

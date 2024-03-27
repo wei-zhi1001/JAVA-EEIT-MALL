@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "returns")
 public class Returns {
 
 //	spring boot 中掃描 Spring Bean 和 Hibernate Entity
@@ -18,20 +19,20 @@ public class Returns {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ReturnID;
+    private Integer return_id;
 
-    private Integer OrderID;
+    private Integer order_id;
 
-    private String ReturnStatus;
+    private String return_status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss EE") // 在 Java 環境內的時間格式(輸入時調整)
-    private Date ReturnDate;
+    private Date return_date;
 
     @PrePersist // 在物件轉換到 Persistent 狀態以前，做這個 function
     public void onCreate() {
-        if (ReturnDate == null) {
-            ReturnDate = new Date();
+        if (return_date == null) {
+            return_date = new Date();
         }
     }
 

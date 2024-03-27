@@ -12,26 +12,26 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "ProductSpec")
+@Table(name = "product_spec")
 @JsonIgnoreProperties({"product"})  // 忽略代理對象中的 product 屬性
 public class ProductSpec {
 
     @Id
-    @Column(name = "SpecID", nullable = false, unique = true)
+    @Column(name = "spec_id", nullable = false, unique = true)
     private String specID;
 
-    @Column(name = "ProductID", insertable = false, updatable = false, nullable = false)
+    @Column(name = "product_id", insertable = false, updatable = false, nullable = false)
     private String productId;
 
-    @Column(name = "Color", nullable = false)
+    @Column(name = "color", nullable = false)
     private String color;
 
-    @Column(name = "StockQuantity", nullable = false)
+    @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProductID")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     //test

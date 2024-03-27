@@ -7,18 +7,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "ProductPhoto")
+@Table(name = "product_photo")
 public class ProductPhoto {
 
     @Id
-    @Column(name = "PhotoID", nullable = false, unique = true)
+    @Column(name = "photo_id", nullable = false, unique = true)
     private Integer photoID;
 
-    @Column(name = "PhotoFile",nullable = false)
+    @Column(name = "photo_file",nullable = false)
     private String photoFile;
 
     @ManyToOne
-    @JoinColumn (name = "specID")
+    @JoinColumn (name = "spec_id")
     private ProductSpec productPhotoSpec;
 
 }

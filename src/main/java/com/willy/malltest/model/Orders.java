@@ -13,35 +13,35 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Orders {
 
     @Id
-    @Column(name = "OrderID")
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderID;  //PRIMARY KEY identity(1,1),
 
     @ManyToOne
-    @JoinColumn(name = "UserID", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User userID;  //foreign key,
 
-    @Column(name = "OrderDate")
+    @Column(name = "order_date")
     private Date orderDate;
-    @Column(name = "PaymentMethod")
+    @Column(name = "payment_method")
     private String paymentMethod;
-    @Column(name = "OrderStatus")
+    @Column(name = "order_status")
     private String orderStatus;
-    @Column(name = "DeliverDate")
+    @Column(name = "deliver_date")
     private Date deliverDate;
-    @Column(name = "PickupDate")
+    @Column(name = "pickup_date")
     private Date pickupDate;
-    @Column(name = "DeliverAddress")
+    @Column(name = "deliver_address")
     private String deliverAddress;
-    @Column(name = "RecipientName")
+    @Column(name = "recipient_name")
     private String recipientName;
-    @Column(name = "RecipientPhone")
+    @Column(name = "recipient_phone")
     private String recipientPhone;
-    @Column(name = "PaymentTime")
+    @Column(name = "payment_time")
     private Date paymentTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
