@@ -3,8 +3,8 @@ package com.willy.malltest.controller;
 
 import com.willy.malltest.dto.UserDto;
 import com.willy.malltest.model.User;
-import com.willy.malltest.service.MailService;
-import com.willy.malltest.service.MailServiceImpl;
+//import com.willy.malltest.service.MailService;
+//import com.willy.malltest.service.MailServiceImpl;
 import com.willy.malltest.service.UserService;
 import com.willy.malltest.service.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
@@ -24,8 +24,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MailService mailService;
+//    @Autowired
+//    private MailService mailService;
 
 
     @RequestMapping("/login")
@@ -87,12 +87,12 @@ public class UserController {
         return !Objects.isNull(loggedInMember);
     }
 
-    @RequestMapping("/mail/pwd")
-    public void sendPassword(String receiver) {
-        mailService.sendPassword(receiver);
-
-
-
-    }
+//    @RequestMapping("/mail/pwd")
+//    public void sendPassword(String receiver) {
+//        mailService.sendPassword(receiver);
+//
+//
+//
+//    }
 
 }

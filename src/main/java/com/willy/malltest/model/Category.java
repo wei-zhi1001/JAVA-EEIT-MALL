@@ -1,24 +1,28 @@
 package com.willy.malltest.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "category")
+@Table
 public class Category {
 
     @Id
-    @Column(name = "category_id", nullable = false, length = 36)
+    @Column
     private String categoryId;
 
-    @Column(name = "category_name", nullable = false, length = 50)
+    @Column
     private String categoryName;
+
+
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
