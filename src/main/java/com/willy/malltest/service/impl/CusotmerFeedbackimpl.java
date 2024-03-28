@@ -1,6 +1,7 @@
 package com.willy.malltest.service.impl;
 
 import com.willy.malltest.dto.CustomerFeedbackDTO;
+import com.willy.malltest.dto.ShowCustomerFeedbackDTO;
 import com.willy.malltest.model.*;
 import com.willy.malltest.repository.CustomerFeedbackRepository;
 import com.willy.malltest.repository.OrdersDetailRepository;
@@ -61,6 +62,32 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             customerFeedbacksDTO.add(dto); // 將轉換後的 TrackDTO 加入到列表中
         }
         return customerFeedbacksDTO;
+    }
+
+    @Override
+    public List<ShowCustomerFeedbackDTO> getShowAllFeedbacksDTO(Long userId) {
+
+        List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
+
+
+        List<ShowCustomerFeedbackDTO> showCustomerFeedbacksDTOs = new ArrayList<>();
+        for (CustomerFeedback customerFeedback : customerFeedbacks) {
+            ShowCustomerFeedbackDTO showCustomerFeedbacksDTO = new ShowCustomerFeedbackDTO();
+
+
+            showCustomerFeedbacksDTO.setFeedbackID(customerFeedback.getFeedbackID());
+            showCustomerFeedbacksDTO.setUserID(customerFeedback.getUser().getUserID());
+            showCustomerFeedbacksDTO.setOrderID(customerFeedback.getOrders().getOrderID());
+            showCustomerFeedbacksDTO.setType(customerFeedback.getType());
+            showCustomerFeedbacksDTO.setFeedbackDate(customerFeedback.getFeedbackDate());
+            showCustomerFeedbacksDTO.setDescription(customerFeedback.getDescription());
+            showCustomerFeedbacksDTO.setCustomerFeedbackStatus(customerFeedback.getCustomerFeedbackStatus());
+            showCustomerFeedbacksDTO.setProductName(customerFeedback.getOrders().getOrdersDetails().getProductSpec().getProduct().getProductName());
+            showCustomerFeedbacksDTO.setPrice(customerFeedback.getOrders().getOrdersDetails().getProductSpec().getProduct().getPrice());
+
+            showCustomerFeedbacksDTOs.add(showCustomerFeedbacksDTO);
+        }
+        return null;
     }
 
 

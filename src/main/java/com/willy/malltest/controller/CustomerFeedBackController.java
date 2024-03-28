@@ -2,6 +2,7 @@ package com.willy.malltest.controller;
 
 
 import com.willy.malltest.dto.CustomerFeedbackDTO;
+import com.willy.malltest.dto.ShowCustomerFeedbackDTO;
 import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.CustomerFeedback;
 import com.willy.malltest.model.Track;
@@ -27,6 +28,11 @@ public class CustomerFeedBackController {
     @GetMapping("/feedbacks/customerdeedbacks")
     public List<CustomerFeedbackDTO> getshowFeedbacks(@RequestParam ("userId") Long userId){
         return cusotmerFeedback.getShowFeedbacksDTO(userId);
+    }
+
+    @GetMapping("/feedbacks/showcustomerdeedbacks")
+    public List<ShowCustomerFeedbackDTO> getShowAllFeedbacks(@RequestParam ("userId") Long userId){
+        return cusotmerFeedback.getShowAllFeedbacksDTO(userId);
     }
 
     @PostMapping("/create/customerdeedback")

@@ -15,6 +15,8 @@ public class ShowCustomerFeedbackDTO {
         private String Description;
         private Date feedbackDate;
         private String CustomerFeedbackStatus;
-        private String productPhoto;
+        private String productName;
+        private int price;
+
 }
 
