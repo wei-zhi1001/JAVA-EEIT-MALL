@@ -35,7 +35,7 @@ public class UserController {
         UserDto result = userService.login(email, password);
 
         if(result != null) {
-            userService.updateLastloginTime(result.getUserID());
+            userService.updateLastloginTime(result.getUserId());
             session.setAttribute("loggedInUser", result);
         }else {
             throw new RuntimeException("登入失敗，帳號或密碼錯誤");
@@ -64,7 +64,7 @@ public class UserController {
 
         }else {
             User newUsers = new User();
-            newUsers.setUsername(username);
+            newUsers.setUserName(username);
             newUsers.setEmail(email);
             newUsers.setPhone(phone);
             newUsers.setPassword(password);

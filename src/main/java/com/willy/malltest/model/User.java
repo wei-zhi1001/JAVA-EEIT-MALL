@@ -12,62 +12,53 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
-    private Long userID;
+    @Column(name = "user_id")
+    private Long userId;
 
     @OneToMany(mappedBy = "user")
     private Set<ThirdParty> thirdParty = new HashSet<>();
 
-    @Column(name = "UserName")
-    private String username;
-    @Column(name = "Email")
+    @Column(name = "user_name")
+    private String userName;
+    @Column(name = "email")
     private String email;
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss EE") // 在 Java 環境內的時間格式(輸入時調整)
-    @Column(name = "RegisterDate")
-    private Date RegisterDate;
+    @Column(name = "register_date")
+    private Date registerDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss EE") // 在 Java 環境內的時間格式(輸入時調整)
-    @Column(name = "LastloginTime")
-    private Date LastLoginTime;
+    @Column(name = "last_login_time")
+    private Date lastLoginTime;
 
-    @Column(name = "UserAddress")
-    private String UserAddress;
-    @Column(name = "DeliverAddress")
-    private String DeliverAddress;
-    @Column(name = "Phone")
-    private String Phone;
-    @Column(name = "Authentication")
-    private Integer Authentication;
+    @Column(name = "user_address")
+    private String userAddress;
+    @Column(name = "deliver_address")
+    private String deliverAddress;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "authentication")
+    private Integer authentication;
 
-    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Orders> orders = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<CustomerFeedback> customerFeedback = new HashSet<>();
 
     //test
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Track> Track;
 
-    public void add(Orders order) {
 
-        if (order != null) {
-
-            if (orders == null) {
-                orders = new HashSet<>();
-            }
-
-            orders.add(order);
-            order.setUserID(this);
-        }
-    }
 }

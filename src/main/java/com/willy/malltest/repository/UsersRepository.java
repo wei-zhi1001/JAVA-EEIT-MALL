@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UsersRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
-    User findByUserID(Long id);
+    User findByUserId(Long id);
 
-    @Query("SELECT u FROM User u WHERE u.email = ?1 AND u.Phone = ?2")
+    @Query("SELECT u FROM User u WHERE u.email = ?1 AND u.phone = ?2")
     User findByEmailAndPhone(String email, String phone);
 
 }
