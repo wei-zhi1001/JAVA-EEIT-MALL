@@ -26,6 +26,8 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
     @Autowired
     private OrdersRepository ordersRepository;
+    @Autowired
+    private OrdersDetailRepository ordersDetailRepository;
 
     @Transactional
     public List<CustomerFeedbackDTO> getAllFeedbacksDTO() {
@@ -69,11 +71,9 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
         List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
 
-
         List<ShowCustomerFeedbackDTO> showCustomerFeedbacksDTOs = new ArrayList<>();
         for (CustomerFeedback customerFeedback : customerFeedbacks) {
             ShowCustomerFeedbackDTO showCustomerFeedbacksDTO = new ShowCustomerFeedbackDTO();
-
 
             showCustomerFeedbacksDTO.setFeedbackID(customerFeedback.getFeedbackID());
             showCustomerFeedbacksDTO.setUserID(customerFeedback.getUser().getUserID());
@@ -82,12 +82,22 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             showCustomerFeedbacksDTO.setFeedbackDate(customerFeedback.getFeedbackDate());
             showCustomerFeedbacksDTO.setDescription(customerFeedback.getDescription());
             showCustomerFeedbacksDTO.setCustomerFeedbackStatus(customerFeedback.getCustomerFeedbackStatus());
-            showCustomerFeedbacksDTO.setProductName(customerFeedback.getOrders().getOrdersDetails().getProductSpec().getProduct().getProductName());
-            showCustomerFeedbacksDTO.setPrice(customerFeedback.getOrders().getOrdersDetails().getProductSpec().getProduct().getPrice());
+
+
+            List<String> productNames = new ArrayList<>();
+            List<Integer> prices = new ArrayList<>();
+
+            for (OrdersDetail ordersDetail : customerFeedback.getOrders().getOrdersDetails()) {
+                productNames.add(ordersDetail.getProductSpec().getProduct().getProductName());
+                prices.add(ordersDetail.getProductSpec().getProduct().getPrice());
+            }
+
+            showCustomerFeedbacksDTO.setProductNames(productNames);
+            showCustomerFeedbacksDTO.setPrices(prices);
 
             showCustomerFeedbacksDTOs.add(showCustomerFeedbacksDTO);
         }
-        return null;
+        return showCustomerFeedbacksDTOs;
     }
 
 
@@ -126,6 +136,17 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         customerFeedback.setDescription(customerFeedbackDTO.getDescription());
         customerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
 
+
+        OrdersDetail ordersDetail = ordersDetailRepository.findById(customerFeedbackDTO.getOrdersDetailId()).get();
+        if (ordersDetail != null) {
+            customerFeedback.setOrdersDetails(ordersDetail);
+        } else {
+            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的產品規格");
+            return null;
+        }
+
         return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
 
     }
@@ -155,6 +176,16 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         Orders orders = ordersRepository.findById(customerFeedbackDTO.getOrderID()).get();
         if (orders != null) {
             existingcustomerFeedback.setOrders(orders);
+        } else {
+            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
+            // 此處僅示例，您可以根據您的需求進行處理
+            System.out.println("找不到對應的產品規格");
+            return null;
+        }
+
+        OrdersDetail ordersDetail = ordersDetailRepository.findById(customerFeedbackDTO.getOrdersDetailId()).get();
+        if (ordersDetail != null) {
+            customerFeedback.setOrdersDetails(ordersDetail);
         } else {
             // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
             // 此處僅示例，您可以根據您的需求進行處理

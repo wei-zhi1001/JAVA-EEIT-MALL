@@ -1,8 +1,11 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,11 +18,14 @@ public class OrdersDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ordersDetailID;  //PRIMARY KEY identity(1,1),
 
-    @Column(name = "order_id", insertable = false, updatable = false)
-    private Integer orderID;  //foreign key
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    @JsonIgnore
+    private Orders orders;
 
-    @Column(name = "spec_id", insertable = false, updatable = false)
-    private String specID;  //foreign key
+    @ManyToOne
+    @JoinColumn(name = "spec_id")
+    private ProductSpec productSpec;
 
     @Column(name = "quantity")
     private int quantity;
@@ -27,8 +33,10 @@ public class OrdersDetail {
     @Column(name = "price")
     private int price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private Orders orders;
+    //test
+    @OneToMany(mappedBy = "ordersDetails")
+    @JsonIgnore
+    private List<CustomerFeedback> customerFeedback;
+
 
 }

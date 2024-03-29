@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -45,22 +42,11 @@ public class Orders {
     private Date paymentTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
-    private Set<OrdersDetail> ordersDetails = new HashSet<OrdersDetail>();
+    private List<OrdersDetail> ordersDetails = new ArrayList<>();
 
     //test
     @OneToMany(mappedBy = "orders")
     @JsonIgnore
     private List<CustomerFeedback> customerFeedback;
 
-    public void add(OrdersDetail item) {
-
-        if (item != null) {
-            if (ordersDetails == null) {
-                ordersDetails = new HashSet<>();
-            }
-
-            ordersDetails.add(item);
-            item.setOrders(this);
-        }
-    }
 }

@@ -15,4 +15,6 @@ public class CustomerFeedbackDTO {
     private String Description;
     private Date feedbackDate;
     private String CustomerFeedbackStatus;
+
+    private Integer ordersDetailId;
 }

@@ -53,4 +53,8 @@ public class CustomerFeedback {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders orders;
+
+    @ManyToOne
+    @JoinColumn(name = "orders_detail_id")
+    private OrdersDetail ordersDetails;
 }

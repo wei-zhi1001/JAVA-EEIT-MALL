@@ -25,31 +25,32 @@ public class CheckoutServiceImpl implements CheckoutService{
     @Transactional
     public PurchaseResponse placeOrder(Purchase purchase) {
 
-        // retrieve the order info from dto
-        Orders orders = purchase.getOrders();
-
-        // generate tracking number
-//        Integer orderTrackingNumber = generateOrderTrackingNumber();
-//        orders.setOrderID(orderTrackingNumber);
-
-        // populate order with orderItems
-        Set<OrdersDetail> orderItems = purchase.getOrderItems();
-        orderItems.forEach(item -> orders.add(item));
-
-        // populate order with shippingAddress
-        orders.setDeliverAddress(purchase.getOrders().getDeliverAddress());
-
-
-        // populate customer with order
-        User user = purchase.getUser();
-        user.add(orders);
-
-        // save to the database
-        usersRepository.save(user);
-
-        // return a response
-//        return new PurchaseResponse(orderTrackingNumber);
-        return new PurchaseResponse(orders.getOrderID());
+//        // retrieve the order info from dto
+//        Orders orders = purchase.getOrders();
+//
+//        // generate tracking number
+////        Integer orderTrackingNumber = generateOrderTrackingNumber();
+////        orders.setOrderID(orderTrackingNumber);
+//
+//        // populate order with orderItems
+//        Set<OrdersDetail> orderItems = purchase.getOrderItems();
+//        orderItems.forEach(item -> orders.add(item));
+//
+//        // populate order with shippingAddress
+//        orders.setDeliverAddress(purchase.getOrders().getDeliverAddress());
+//
+//
+//        // populate customer with order
+//        User user = purchase.getUser();
+//        user.add(orders);
+//
+//        // save to the database
+//        usersRepository.save(user);
+//
+//        // return a response
+////        return new PurchaseResponse(orderTrackingNumber);
+//        return new PurchaseResponse(orders.getOrderID());
+        return null;
     }
 
     private String generateOrderTrackingNumber() {
