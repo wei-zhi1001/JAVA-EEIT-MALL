@@ -158,8 +158,7 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
         CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
         if (existingcustomerFeedback == null) {
-            // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
-            System.out.println("相同的 Track 已存在");
+            System.out.println("existingcustomerFeedback不存在");
             return null;
         }
 

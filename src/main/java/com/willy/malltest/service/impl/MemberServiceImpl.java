@@ -1,11 +1,10 @@
 package com.willy.malltest.service.impl;
 
 
+import com.willy.malltest.dto.CustomerFeedbackDTO;
 import com.willy.malltest.dto.MemberReDataDTO;
 import com.willy.malltest.dto.TrackDTO;
-import com.willy.malltest.model.ProductSpec;
-import com.willy.malltest.model.Track;
-import com.willy.malltest.model.User;
+import com.willy.malltest.model.*;
 import com.willy.malltest.repository.MemberRepository;
 import com.willy.malltest.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +56,37 @@ public class MemberServiceImpl implements MemberService {
         dto.setDeliverAddress(user.getDeliverAddress());
         dto.setRegisterDate(user.getRegisterDate());
         return dto;
+    }
+
+
+    @Transactional
+    public User updatememberdata(MemberReDataDTO memberReDataDTO){
+        User user = new User();
+
+        User existingUser = memberRepository.findById(memberReDataDTO.getUserID()).orElse(null);
+        if (existingUser == null) {
+            System.out.println("相同的 existingUser 不存在");
+            return null;
+        }
+        if(memberReDataDTO.getUserName()!=null){
+            existingUser.setUserName(memberReDataDTO.getUserName());
+        }
+        if(memberReDataDTO.getEmail()!=null){
+           existingUser.setEmail(memberReDataDTO.getEmail());
+        }
+        if(memberReDataDTO.getPhone()!=null){
+            existingUser.setPhone(memberReDataDTO.getPhone());
+        }
+        if(memberReDataDTO.getUserAddress()!=null){
+            existingUser.setUserAddress(memberReDataDTO.getUserAddress());
+        }
+        if(memberReDataDTO.getDeliverAddress()!=null){
+            existingUser.setDeliverAddress(memberReDataDTO.getDeliverAddress());
+        }
+        if(memberReDataDTO.getRegisterDate()!=null){
+            existingUser.setRegisterDate(memberReDataDTO.getRegisterDate());
+
+        }
+        return memberRepository.save(existingUser); // 保存到資料庫中
     }
 }
