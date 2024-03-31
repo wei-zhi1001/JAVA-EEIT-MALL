@@ -3,6 +3,7 @@ package com.willy.malltest.service.impl;
 
 import com.willy.malltest.dto.CustomerFeedbackDTO;
 import com.willy.malltest.dto.MemberReDataDTO;
+import com.willy.malltest.dto.MemberRePasswordDTO;
 import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.*;
 import com.willy.malltest.repository.MemberRepository;
@@ -58,6 +59,19 @@ public class MemberServiceImpl implements MemberService {
         return dto;
     }
 
+    @Transactional
+    public MemberRePasswordDTO getShowpassworddata(Long userId) {
+
+        // 根據 userId 查找相應的 User 實體並設置給新 Track 對象
+        User user = memberRepository.findById(userId).orElse(null);
+
+        MemberRePasswordDTO dto = new MemberRePasswordDTO();
+        dto.setUserID(user.getUserID());
+        dto.setUserName(user.getUserName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        return dto;
+    }
 
     @Transactional
     public User updatememberdata(MemberReDataDTO memberReDataDTO){
