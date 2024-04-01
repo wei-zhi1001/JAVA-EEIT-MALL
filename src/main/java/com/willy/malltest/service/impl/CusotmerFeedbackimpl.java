@@ -36,8 +36,8 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         for (CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             CustomerFeedbackDTO dto = new CustomerFeedbackDTO();
             dto.setFeedbackID(customerFeedback.getFeedbackID());
-            dto.setUserID(customerFeedback.getUser().getUserID());
-            dto.setOrderID(customerFeedback.getOrders().getOrderID());
+            dto.setUserID(customerFeedback.getUser().getUserId());
+            dto.setOrderID(customerFeedback.getOrders().getOrderId());
             dto.setType(customerFeedback.getType());
             dto.setFeedbackDate(customerFeedback.getFeedbackDate());
             dto.setDescription(customerFeedback.getDescription());
@@ -55,8 +55,8 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
         for (CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             CustomerFeedbackDTO dto = new CustomerFeedbackDTO();
             dto.setFeedbackID(customerFeedback.getFeedbackID());
-            dto.setUserID(customerFeedback.getUser().getUserID());
-            dto.setOrderID(customerFeedback.getOrders().getOrderID());
+            dto.setUserID(customerFeedback.getUser().getUserId());
+            dto.setOrderID(customerFeedback.getOrders().getOrderId());
             dto.setType(customerFeedback.getType());
             dto.setFeedbackDate(customerFeedback.getFeedbackDate());
             dto.setDescription(customerFeedback.getDescription());
@@ -76,8 +76,8 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             ShowCustomerFeedbackDTO showCustomerFeedbacksDTO = new ShowCustomerFeedbackDTO();
 
             showCustomerFeedbacksDTO.setFeedbackID(customerFeedback.getFeedbackID());
-            showCustomerFeedbacksDTO.setUserID(customerFeedback.getUser().getUserID());
-            showCustomerFeedbacksDTO.setOrderID(customerFeedback.getOrders().getOrderID());
+            showCustomerFeedbacksDTO.setUserID(customerFeedback.getUser().getUserId());
+            showCustomerFeedbacksDTO.setOrderID(customerFeedback.getOrders().getOrderId());
             showCustomerFeedbacksDTO.setType(customerFeedback.getType());
             showCustomerFeedbacksDTO.setFeedbackDate(customerFeedback.getFeedbackDate());
             showCustomerFeedbacksDTO.setDescription(customerFeedback.getDescription());
@@ -146,8 +146,10 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             System.out.println("找不到對應的產品規格");
             return null;
         }
-
-        return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
+        CustomerFeedback customerFeedback2 = customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
+        System.out.println(123);
+        System.out.println(customerFeedback2);
+        return customerFeedback2; // 保存到資料庫中
 
     }
 

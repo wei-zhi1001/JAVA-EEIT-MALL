@@ -3,14 +3,16 @@ package com.willy.malltest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,9 +48,9 @@ public class User {
     @Column(name = "authentication")
     private Integer authentication;
 
-    @OneToMany(mappedBy = "userID", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Orders> orders = new HashSet<>();
+    private List<Orders> orders = new ArrayList<>();
 
 
     //test

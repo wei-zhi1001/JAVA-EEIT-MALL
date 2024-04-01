@@ -19,10 +19,9 @@ public class ProductPhoto {
     @Column(name = "photo_file")
     private byte[] photoFile;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
+    @ManyToOne
+    @JoinColumn (name = "spec_id")
     @JsonIgnore
-    private ProductSpec productSpec;
-
+    private ProductSpec productPhotoSpec;
 
 }

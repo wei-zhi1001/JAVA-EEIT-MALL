@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         for (User user : Users) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             MemberReDataDTO dto = new MemberReDataDTO();
 
-            dto.setUserID(user.getUserID());
+            dto.setUserID(user.getUserId());
             dto.setUserName(user.getUserName());
             dto.setEmail(user.getEmail());
             dto.setPhone(user.getPhone());
@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
         User user = memberRepository.findById(userId).orElse(null);
 
         MemberReDataDTO dto = new MemberReDataDTO();
-        dto.setUserID(user.getUserID());
+        dto.setUserID(user.getUserId());
         dto.setUserName(user.getUserName());
         dto.setEmail(user.getEmail());
         dto.setPhone(user.getPhone());
@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
         User user = memberRepository.findById(userId).orElse(null);
 
         MemberRePasswordDTO dto = new MemberRePasswordDTO();
-        dto.setUserID(user.getUserID());
+        dto.setUserID(user.getUserId());
         dto.setUserName(user.getUserName());
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());

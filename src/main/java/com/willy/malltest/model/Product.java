@@ -59,7 +59,6 @@ public class Product {
     @Column(name = "modify_date")
     private Date modifyDate;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) //延遲加載
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

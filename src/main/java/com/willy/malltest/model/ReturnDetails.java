@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class ReturnDetails {
 
     @OneToOne
     @JoinColumn(name = "orders_detail_id")
+    @JsonIgnore
     private OrdersDetail ordersDetail;
 
     @Column(name = "return_reason")

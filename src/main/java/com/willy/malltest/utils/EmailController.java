@@ -2,11 +2,8 @@ package com.willy.malltest.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +13,7 @@ public class EmailController {
     private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
 
     private final EmailService emailService;
-    // 使用 ConcurrentHashMap 作为验证码的临时存储
+    // 使用 ConcurrentHashMap 作為驗證碼的臨時儲存
     private final Map<String, String> verificationCodes = new ConcurrentHashMap<>();
 
     @Autowired
@@ -26,27 +23,43 @@ public class EmailController {
 
     @PostMapping("/register")
     public Result register(@RequestBody Map<String, String> requestBody) {
-        String email = ""; // 或者 null
+        String email = requestBody.get("email");
         try {
-            email = requestBody.get("email");
             logger.info("Received email: {}", email);
 
-            // 生成验证码
+            // 生成驗證碼
             String code = Utils.generateVerificationCode();
             logger.info("Generated code: {}", code);
-            // 将验证码存储到内存中
+            // 將驗證碼儲存到內存中
             verificationCodes.put(email, code);
 
-            // 假设验证码在5分钟后过期（这里仅为日志记录，实际没有自动过期处理）
-            logger.info("Setting verification code for: {}. Code will expire in 5 minutes.", email);
-
-            // 发送注册邮件
-            emailService.sendSimpleMessage(email, "注册验证码", "您的验证码是：" + code);
+            // 發送註冊郵件
+            emailService.sendSimpleMessage(email, "驗證碼", "您的驗證碼是：" + code);
             logger.info("Verification code sent to: {}", email);
-            return new Result(Result.SUCCESS, "验证码已发送至您的邮箱");
+
+            return new Result(Result.SUCCESS, "驗證碼已發送至您的信箱");
         } catch (Exception e) {
             logger.error("Failed to send email to: {} with error:", email, e);
-            return new Result(Result.ERROR, "发送验证码失败");
+            return new Result(Result.ERROR, "發送驗證碼失敗");
+        }
+    }
+
+    @PostMapping("/verifyCode")
+    public Result verifyCode(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String userInputCode = requestBody.get("code");
+        String storedCode = verificationCodes.get(email);
+
+        if(storedCode != null && storedCode.equals(userInputCode)) {
+            // 驗證碼比對正確，進行後續的業務處理
+            logger.info("Verification code matched for email: {}", email);
+            // 驗證成功後，可以從儲存中移除驗證碼
+            verificationCodes.remove(email);
+            return new Result(Result.SUCCESS, "驗證碼驗證成功");
+        } else {
+            // 驗證碼不匹配或已過期
+            logger.info("Verification code mismatched or expired for email: {}", email);
+            return new Result(Result.ERROR, "驗證碼驗證失敗");
         }
     }
 }

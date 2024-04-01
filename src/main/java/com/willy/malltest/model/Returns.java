@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,6 +36,7 @@ public class Returns {
     private Date returnDate;
 
     @OneToMany(mappedBy = "returns", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ReturnDetails> returnDetails;
 
     @PrePersist // 在物件轉換到 Persistent 狀態以前，做這個 function

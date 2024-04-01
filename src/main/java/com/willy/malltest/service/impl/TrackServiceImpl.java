@@ -35,8 +35,8 @@ public class TrackServiceImpl implements TrackService {
         for (Track track : tracks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             TrackDTO dto = new TrackDTO();
             dto.setTrackID(track.getTrackID());
-            dto.setUserID(track.getUser().getUserID());
-            dto.setSpecID(track.getProductSpec().getSpecID());
+            dto.setUserID(track.getUser().getUserId());
+            dto.setSpecID(track.getProductSpec().getSpecId());
             tracksdto.add(dto); // 將轉換後的 TrackDTO 加入到列表中
         }
         return tracksdto;
@@ -52,11 +52,11 @@ public class TrackServiceImpl implements TrackService {
         for (Track track : tracks) { // 遍历每个 Track 对象
             TrackShowDTO dto = new TrackShowDTO();
             dto.setTrackID(track.getTrackID());
-            dto.setUserID(track.getUser().getUserID());
-            dto.setSpecID(track.getProductSpec().getSpecID());
+            dto.setUserID(track.getUser().getUserId());
+            dto.setSpecID(track.getProductSpec().getSpecId());
 
             // 获取与 ProductSpec 关联的 ProductPhoto 对象列表
-            List<ProductPhoto> productPhotos = track.getProductSpec().getProductPhoto();
+            List<ProductPhoto> productPhotos = track.getProductSpec().getProductPhotos();
             if (!productPhotos.isEmpty()) {
                 // 取第一个 ProductPhoto 对象的 photoFile 属性，假设一对多关系中只有一个 ProductPhoto
                 ProductPhoto productPhoto = productPhotos.get(0);
