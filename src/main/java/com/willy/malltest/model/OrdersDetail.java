@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class OrdersDetail {
     @Id
     @Column(name = "orders_detail_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ordersDetailID;  //PRIMARY KEY identity(1,1),
+    private Integer ordersDetailId;  //PRIMARY KEY identity(1,1),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
@@ -32,6 +33,9 @@ public class OrdersDetail {
 
     @Column(name = "price")
     private int price;
+
+    @OneToOne(mappedBy = "ordersDetail")
+    private ReturnDetails returnDetails;
 
     //test
     @OneToMany(mappedBy = "ordersDetails")

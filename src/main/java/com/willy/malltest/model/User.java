@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userID;
+    private Long userId;
 
     @OneToMany(mappedBy = "user")
     private List<ThirdParty> thirdParty = new ArrayList<>();
@@ -61,16 +61,4 @@ public class User {
     @JsonIgnore
     private List<CustomerFeedback> customerFeedback;
 
-    public void add(Orders order) {
-
-        if (order != null) {
-
-            if (orders == null) {
-                orders = new HashSet<>();
-            }
-
-            orders.add(order);
-            order.setUserID(this);
-        }
-    }
 }
