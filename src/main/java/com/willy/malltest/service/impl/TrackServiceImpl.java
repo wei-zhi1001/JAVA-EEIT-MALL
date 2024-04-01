@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -60,7 +61,10 @@ public class TrackServiceImpl implements TrackService {
             if (!productPhotos.isEmpty()) {
                 // 取第一个 ProductPhoto 对象的 photoFile 属性，假设一对多关系中只有一个 ProductPhoto
                 ProductPhoto productPhoto = productPhotos.get(0);
-                dto.setPhotoFile(productPhoto.getPhotoFile());
+
+                String photoBase64 = Base64.getEncoder().encodeToString(productPhoto.getPhotoFile());
+                dto.setPhotoFile(photoBase64); // 设置为 Base64 编码后的字符串
+//                dto.setPhotoFile(productPhoto.getPhotoFile());
             }
             dto.setProductName(track.getProductSpec().getProduct().getProductName());
             dto.setProductPrice(track.getProductSpec().getProduct().getPrice());

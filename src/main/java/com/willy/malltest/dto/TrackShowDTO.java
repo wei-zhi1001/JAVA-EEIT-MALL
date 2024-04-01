@@ -11,6 +11,6 @@ public class TrackShowDTO {
     private Long userID;
     private String specID;
     private Integer productPrice;
-    private byte[] photoFile;
+    private String photoFile;
     private String productName;
 }
