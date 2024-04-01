@@ -1,5 +1,6 @@
 package com.willy.malltest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,15 +12,16 @@ import lombok.Setter;
 public class ProductPhoto {
 
     @Id
-    @Column
+    @Column(name = "photo_id")
     private Integer photoID;
 
     @Lob
-    @Column
+    @Column(name = "photo_file")
     private byte[] photoFile;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
+    @JsonIgnore
     private ProductSpec productSpec;
 
 

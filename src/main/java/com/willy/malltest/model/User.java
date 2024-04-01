@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -21,7 +18,7 @@ public class User {
     private Long userId;
 
     @OneToMany(mappedBy = "user")
-    private Set<ThirdParty> thirdParty = new HashSet<>();
+    private List<ThirdParty> thirdParty = new ArrayList<>();
 
     @Column(name = "user_name")
     private String userName;
@@ -49,15 +46,17 @@ public class User {
     @Column(name = "authentication")
     private Integer authentication;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Orders> orders = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<CustomerFeedback> customerFeedback = new HashSet<>();
 
     //test
-    @OneToMany(mappedBy = "user")
     @JsonIgnore
+    @OneToMany(mappedBy = "user")
     private List<Track> Track;
 
 
