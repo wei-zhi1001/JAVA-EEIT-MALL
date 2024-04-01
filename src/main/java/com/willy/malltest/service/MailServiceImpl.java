@@ -54,7 +54,7 @@ public class MailServiceImpl implements MailService{
         message.setTo(email);
         message.setSubject(subject);
         message.setText(content);
-        message.setFrom("XXX商城<xxx@gmail.com>");
+        message.setFrom("3C Mall<project.3c.mall@gmail.com>");
 
 
         mailSender.send(message);
@@ -67,13 +67,13 @@ public class MailServiceImpl implements MailService{
 
     @Override
     public void sendVerifyCode(String email, String verificationCode) {
-        String content = "歡迎加入XXX商城會員，您的驗證碼為："+verificationCode+"，請於5分鐘內輸入以完成註冊，5分鐘後此驗證碼將會失效！";
-        String subject = "XXX商城註冊驗證碼";
+        String content = "歡迎加入3C Mall會員，您的驗證碼為："+verificationCode+"，請於5分鐘內輸入以完成註冊，5分鐘後此驗證碼將會失效！";
+        String subject = "3C Mall註冊驗證碼";
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject(subject);
         message.setText(content);
-        message.setFrom("XXX商城<xxx@gmail.com>");
+        message.setFrom("3C Mall<project.3c.mall@gmail.com>");
 
         mailSender.send(message);
     }

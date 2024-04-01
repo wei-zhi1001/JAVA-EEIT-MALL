@@ -106,21 +106,17 @@ public class GoogleOAuth2NativeHttpController {
             String payloadPicture = payloadJsonNode.get("picture").asText();
             String payloadLocale = payloadJsonNode.get("locale").asText();
 
-            // System.out.println("payloadGoogleId: " + payloadGoogleId);
-            // System.out.println("payloadEmail: " + payloadEmail);
-            // System.out.println("payloadName: " + payloadName);
-            // System.out.println("payloadPicture: " + payloadPicture);
-            // System.out.println("payloadLocale: " + payloadLocale);
+
 
             //LoginUserDTO loginUser = new LoginUserDTO(payloadGoogleId, payloadEmail, true);
-            UserDto loggedInUser = new UserDto();
+            UserDto loggedInUser;
             // 將使用者放到資料庫
             boolean isRigister = userService.checkIfUsernameExist(payloadEmail);
 
             if(isRigister){
                 loggedInUser = userService.loginOAuth2(payloadEmail);
             }else{
-                loggedInUser = userService.addUsersOAuth2(payloadGoogleId,payloadEmail,payloadName);
+                loggedInUser = userService.addUsersOAuth2(payloadGoogleId,payloadName,payloadEmail);
             }
 
             // 將 USER 放到 SESSION 內
