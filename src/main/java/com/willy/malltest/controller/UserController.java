@@ -67,7 +67,7 @@ public class UserController {
             newUsers.setEmail(email);
             newUsers.setPhone(phone);
             newUsers.setPassword(password);
-            newUsers.setAuthentication(1);
+            newUsers.setAuthentication(2);
 
             Date today = new Date();
             newUsers.setRegisterDate(today);
