@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -80,9 +79,16 @@ public class UserController {
     }
     @RequestMapping("/check")
     public boolean checkLogin(HttpSession session) {
-        UserDto loggedInMember = (UserDto) session.getAttribute("loggedInMember");
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
-        return !Objects.isNull(loggedInMember);
+        return !Objects.isNull(loggedInUser);
+    }
+
+    @RequestMapping("/getSession")
+    public UserDto getSession(HttpSession session) {
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+
+        return loggedInUser;
     }
 
     @RequestMapping("/mail/pwd")

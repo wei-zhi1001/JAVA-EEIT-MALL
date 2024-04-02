@@ -123,7 +123,7 @@ public class GoogleOAuth2NativeHttpController {
             httpSession.setAttribute("loggedInUser", loggedInUser);
         }
 
-        return "redirect:http://localhost:5173/";
+        return "redirect:http://localhost:5173/OLoginSuccess";
     }
 
 }
