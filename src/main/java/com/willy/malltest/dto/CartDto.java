@@ -7,11 +7,10 @@ import lombok.Setter;
 @Setter
 public class CartDto {
     private Integer cartItemId;
-    private Integer productSpecId;
+    private String specId;
     private Integer productPhotoId;
     private byte[] photoFile;
     private String productName;
     private Integer productPrice;
     private Integer quantity;
-
 }
