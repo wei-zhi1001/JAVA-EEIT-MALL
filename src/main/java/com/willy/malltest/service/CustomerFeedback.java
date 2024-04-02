@@ -2,11 +2,10 @@ package com.willy.malltest.service;
 
 import com.willy.malltest.dto.CustomerFeedbackDTO;
 import com.willy.malltest.dto.ShowCustomerFeedbackDTO;
-import com.willy.malltest.model.CustomerFeedback;
 
 import java.util.List;
 
-public interface CusotmerFeedback {
+public interface CustomerFeedback {
 
     public List<CustomerFeedbackDTO> getAllFeedbacksDTO();
 
@@ -14,9 +13,9 @@ public interface CusotmerFeedback {
 
     public List<ShowCustomerFeedbackDTO> getShowAllFeedbacksDTO(Long userId);
 
-    public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
+    public com.willy.malltest.model.CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
 
-    public CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
+    public com.willy.malltest.model.CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO);
 
-    public void deleteCusotmerFeedback(CustomerFeedbackDTO customerFeedbackDTO);
+    public void deleteCustomerFeedback(CustomerFeedbackDTO customerFeedbackDTO);
 }

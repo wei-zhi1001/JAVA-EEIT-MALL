@@ -49,7 +49,6 @@ public class EmailController {
         String email = requestBody.get("email");
         String userInputCode = requestBody.get("code");
         String storedCode = verificationCodes.get(email);
-
         if(storedCode != null && storedCode.equals(userInputCode)) {
             // 驗證碼比對正確，進行後續的業務處理
             logger.info("Verification code matched for email: {}", email);

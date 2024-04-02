@@ -7,7 +7,7 @@ import com.willy.malltest.repository.CustomerFeedbackRepository;
 import com.willy.malltest.repository.OrdersDetailRepository;
 import com.willy.malltest.repository.OrdersRepository;
 import com.willy.malltest.repository.UsersRepository;
-import com.willy.malltest.service.CusotmerFeedback;
+import com.willy.malltest.service.CustomerFeedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CusotmerFeedbackimpl implements CusotmerFeedback {
+public class CustomerFeedbackImpl implements CustomerFeedback {
 
     @Autowired
     private CustomerFeedbackRepository customerFeedbackRepository;
@@ -31,9 +31,9 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
     @Transactional
     public List<CustomerFeedbackDTO> getAllFeedbacksDTO() {
-        List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findAll();
+        List<com.willy.malltest.model.CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findAll();
         List<CustomerFeedbackDTO> customerFeedbacksDTO = new ArrayList<>(); // 初始化空的 TrackDTO 列表
-        for (CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
+        for (com.willy.malltest.model.CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             CustomerFeedbackDTO dto = new CustomerFeedbackDTO();
             dto.setFeedbackID(customerFeedback.getFeedbackID());
             dto.setUserID(customerFeedback.getUser().getUserId());
@@ -49,10 +49,10 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
     @Override
     public List<CustomerFeedbackDTO> getShowFeedbacksDTO(Long userId) {
-        List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
+        List<com.willy.malltest.model.CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
         List<CustomerFeedbackDTO> customerFeedbacksDTO = new ArrayList<>(); // 初始化空的 TrackDTO 列表
 
-        for (CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
+        for (com.willy.malltest.model.CustomerFeedback customerFeedback : customerFeedbacks) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             CustomerFeedbackDTO dto = new CustomerFeedbackDTO();
             dto.setFeedbackID(customerFeedback.getFeedbackID());
             dto.setUserID(customerFeedback.getUser().getUserId());
@@ -69,10 +69,10 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
     @Override
     public List<ShowCustomerFeedbackDTO> getShowAllFeedbacksDTO(Long userId) {
 
-        List<CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
+        List<com.willy.malltest.model.CustomerFeedback> customerFeedbacks = customerFeedbackRepository.findCustomerFeedbackByduserId(userId);
 
         List<ShowCustomerFeedbackDTO> showCustomerFeedbacksDTOs = new ArrayList<>();
-        for (CustomerFeedback customerFeedback : customerFeedbacks) {
+        for (com.willy.malltest.model.CustomerFeedback customerFeedback : customerFeedbacks) {
             ShowCustomerFeedbackDTO showCustomerFeedbacksDTO = new ShowCustomerFeedbackDTO();
 
             showCustomerFeedbacksDTO.setFeedbackID(customerFeedback.getFeedbackID());
@@ -102,9 +102,9 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
 
     @Transactional
-    public CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO) {
+    public com.willy.malltest.model.CustomerFeedback addFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO) {
 
-        CustomerFeedback customerFeedback = new CustomerFeedback();
+        com.willy.malltest.model.CustomerFeedback customerFeedback = new com.willy.malltest.model.CustomerFeedback();
 
         User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
         if (user != null) {
@@ -126,7 +126,7 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             return null;
         }
 
-        CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(), customerFeedbackDTO.getUserID());
+        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(), customerFeedbackDTO.getUserID());
         if (existingcustomerFeedback != null) {
             // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
             System.out.println("相同的 Track 已存在");
@@ -146,7 +146,7 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             System.out.println("找不到對應的產品規格");
             return null;
         }
-        CustomerFeedback customerFeedback2 = customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
+        com.willy.malltest.model.CustomerFeedback customerFeedback2 = customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
         System.out.println(123);
         System.out.println(customerFeedback2);
         return customerFeedback2; // 保存到資料庫中
@@ -155,10 +155,10 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
 
 
     @Transactional
-    public CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO){
-        CustomerFeedback customerFeedback = new CustomerFeedback();
+    public com.willy.malltest.model.CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO){
+        com.willy.malltest.model.CustomerFeedback customerFeedback = new com.willy.malltest.model.CustomerFeedback();
 
-        CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
+        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
         if (existingcustomerFeedback == null) {
             System.out.println("existingcustomerFeedback不存在");
             return null;
@@ -203,9 +203,9 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
     }
 
     @Override
-    public void deleteCusotmerFeedback(CustomerFeedbackDTO customerFeedbackDTO) {
+    public void deleteCustomerFeedback(CustomerFeedbackDTO customerFeedbackDTO) {
 
-        CustomerFeedback customerFeedback = new CustomerFeedback();
+        com.willy.malltest.model.CustomerFeedback customerFeedback = new com.willy.malltest.model.CustomerFeedback();
 
         // 根據 userId 查找相應的 User 實體並設置給新 Track 對象
         User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
@@ -228,7 +228,7 @@ public class CusotmerFeedbackimpl implements CusotmerFeedback {
             return;
         }
 
-        CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
+        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
         if (existingcustomerFeedback == null) {
             // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
             System.out.println("相同的 Track 已存在");
