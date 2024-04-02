@@ -68,7 +68,7 @@ public class UserController {
             newUsers.setEmail(email);
             newUsers.setPhone(phone);
             newUsers.setPassword(password);
-            newUsers.setAuthentication(1);
+            newUsers.setAuthentication(2);
 
             Date today = new Date();
             newUsers.setRegisterDate(today);
@@ -80,9 +80,16 @@ public class UserController {
     }
     @RequestMapping("/check")
     public boolean checkLogin(HttpSession session) {
-        UserDto loggedInMember = (UserDto) session.getAttribute("loggedInMember");
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
-        return !Objects.isNull(loggedInMember);
+        return !Objects.isNull(loggedInUser);
+    }
+
+    @RequestMapping("/getSession")
+    public UserDto getSession(HttpSession session) {
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+
+        return loggedInUser;
     }
 
     @RequestMapping("/mail/pwd")
