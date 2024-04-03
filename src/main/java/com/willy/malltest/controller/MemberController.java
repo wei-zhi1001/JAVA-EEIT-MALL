@@ -33,6 +33,12 @@ private MemberService MemberService;
         return MemberService.getShowpassworddata(userId);
     }
 
+    @PutMapping("/update/memberRePasswordDTO")
+    public User updateMemberShowPasswordData(@RequestBody MemberRePasswordDTO memberRePasswordDTO){
+        return MemberService.updateMemberShowPasswordData(memberRePasswordDTO);
+    }
+
+
     @PutMapping("/update/memberdataupdate")
     public User updatememberdata(@RequestBody MemberReDataDTO memberReDataDTO){
         return MemberService.updatememberdata(memberReDataDTO);

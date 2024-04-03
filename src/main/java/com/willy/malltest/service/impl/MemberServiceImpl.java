@@ -7,8 +7,10 @@ import com.willy.malltest.dto.MemberRePasswordDTO;
 import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.*;
 import com.willy.malltest.repository.MemberRepository;
+import com.willy.malltest.repository.UsersRepository;
 import com.willy.malltest.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,13 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
+    private UsersRepository userRepository;
+
+    @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder pwdEncoder;
 
 
     @Transactional(readOnly = true)
@@ -74,8 +82,28 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Transactional
+    public User updateMemberShowPasswordData(MemberRePasswordDTO memberRePasswordDTO) {
+        User existingUser = memberRepository.findById(memberRePasswordDTO.getUserID()).orElse(null);
+
+        if (existingUser == null) {
+            System.out.println("相同的 existingUser 不存在");
+            return null;
+        }
+        existingUser.setPassword(memberRePasswordDTO.getPassword());
+
+        existingUser.setUserId(existingUser.getUserId());
+        existingUser.setUserName(existingUser.getUserName());
+        existingUser.setEmail(existingUser.getEmail());
+
+        String encodedPwd = pwdEncoder.encode(existingUser.getPassword()); // 加密
+
+        existingUser.setPassword(encodedPwd);
+
+        return memberRepository.save(existingUser); // 保存到資料庫中
+    }
+
+    @Transactional
     public User updatememberdata(MemberReDataDTO memberReDataDTO){
-        User user = new User();
 
         User existingUser = memberRepository.findById(memberReDataDTO.getUserID()).orElse(null);
         if (existingUser == null) {
@@ -99,7 +127,6 @@ public class MemberServiceImpl implements MemberService {
         }
         if(memberReDataDTO.getRegisterDate()!=null){
             existingUser.setRegisterDate(memberReDataDTO.getRegisterDate());
-
         }
         return memberRepository.save(existingUser); // 保存到資料庫中
     }

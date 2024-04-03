@@ -12,6 +12,8 @@ public interface MemberService {
 
     public MemberReDataDTO getShowMemberReDTOs(Long userId);
 
+    public User updateMemberShowPasswordData(MemberRePasswordDTO memberRePasswordDTO);
+
     public User updatememberdata(MemberReDataDTO memberReDataDTO);
     public MemberRePasswordDTO getShowpassworddata(Long userId);
 
