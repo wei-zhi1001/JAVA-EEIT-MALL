@@ -8,4 +8,5 @@ public interface MemberOrders {
     public List<MemberShowOrdersDTO> getAllMemberOrders();
 
     public List<MemberShowOrdersDTO> getAllUserMemberOrders(Long userId);
+    public void deleteMemberOrders(int orderId);
 }

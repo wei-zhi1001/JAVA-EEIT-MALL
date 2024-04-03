@@ -20,4 +20,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Transactional
     @Query(value = "SELECT * FROM orders WHERE user_id = :userId", nativeQuery = true)
     List<Orders> findOrdersByUserId(@Param("userId") Long userId);
+
+
 }

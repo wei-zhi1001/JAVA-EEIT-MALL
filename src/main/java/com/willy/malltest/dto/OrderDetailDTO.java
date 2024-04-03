@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderDetailDTO {
+    private String orderDetailId;
     private String productSpec;
     private String productName;
     private String color;
