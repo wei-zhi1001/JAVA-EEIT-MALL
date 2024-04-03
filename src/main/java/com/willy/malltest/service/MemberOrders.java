@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MemberOrders {
     public List<MemberShowOrdersDTO> getAllMemberOrders();
+
+    public List<MemberShowOrdersDTO> getAllUserMemberOrders(Long userId);
 }

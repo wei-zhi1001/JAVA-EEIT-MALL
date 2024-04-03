@@ -51,7 +51,43 @@ public class MemberOrdersImpl implements MemberOrders {
                     dto.setProductName(detail.getProductSpec().getProduct().getProductName());
                 }
                 // 注意：上面的逻辑假设每个OrdersDetail关联到一个ProductSpec，你可能需要根据实际情况调整
+                memberShowOrdersDTO.add(dto); // 將轉換後的 TrackDTO 加入到列表中
+            }
+        }
+        return memberShowOrdersDTO;
+    }
 
+    @Transactional
+    public List<MemberShowOrdersDTO> getAllUserMemberOrders(Long userId) {
+        List<Orders> orders = ordersRepository.findOrdersByUserId(userId);
+        List<MemberShowOrdersDTO> memberShowOrdersDTO = new ArrayList<>();
+        for (Orders order : orders) {
+            for (OrdersDetail detail : order.getOrdersDetails()) {
+                MemberShowOrdersDTO dto = new MemberShowOrdersDTO();
+
+                dto.setOrderId(order.getOrderId());
+                dto.setUser(order.getUser());
+                dto.setOrderDate(order.getOrderDate());
+                dto.setPaymentMethod(order.getPaymentMethod());
+                dto.setOrderStatus(order.getOrderStatus());
+                dto.setDeliverDate(order.getDeliverDate());
+                dto.setPickupDate(order.getPickupDate());
+                dto.setDeliverAddress(order.getDeliverAddress());
+                dto.setRecipientName(order.getRecipientName());
+                dto.setRecipientPhone(order.getRecipientPhone());
+                dto.setPaymentTime(order.getPaymentTime());
+
+                dto.setOrderPrice(detail.getPrice());
+
+                // 现在从OrdersDetail实例中获取产品规格和其他信息
+                dto.setQuantity(detail.getQuantity());
+                dto.setPrice(detail.getPrice()); // 注意：这里假设每个订单详情项有单独的价格
+                if (detail.getProductSpec() != null) {
+                    dto.setProductSpec(detail.getProductSpec().getSpecId()); // 假设getSpecName()返回规格名称
+                    dto.setColor(detail.getProductSpec().getColor());
+                    dto.setProductName(detail.getProductSpec().getProduct().getProductName());
+                }
+                // 注意：上面的逻辑假设每个OrdersDetail关联到一个ProductSpec，你可能需要根据实际情况调整
                 memberShowOrdersDTO.add(dto); // 將轉換後的 TrackDTO 加入到列表中
             }
         }
