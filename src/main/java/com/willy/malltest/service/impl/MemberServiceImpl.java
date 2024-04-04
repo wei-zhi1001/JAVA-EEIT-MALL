@@ -103,6 +103,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Transactional
+    public Boolean memberInputPassword(MemberRePasswordDTO memberRePasswordDTO) {
+
+        User existingUser = memberRepository.findById(memberRePasswordDTO.getUserID()).orElse(null);
+
+        if (existingUser == null) {
+            System.out.println("相同的 existingUser 不存在");
+            return false;
+        }
+        if(pwdEncoder.matches(memberRePasswordDTO.getPassword(), existingUser.getPassword())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Transactional
     public User updatememberdata(MemberReDataDTO memberReDataDTO){
 
         User existingUser = memberRepository.findById(memberReDataDTO.getUserID()).orElse(null);

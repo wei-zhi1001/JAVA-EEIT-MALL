@@ -14,7 +14,10 @@ public interface MemberService {
 
     public User updateMemberShowPasswordData(MemberRePasswordDTO memberRePasswordDTO);
 
+    public Boolean memberInputPassword(MemberRePasswordDTO memberRePasswordDTO) ;
+
     public User updatememberdata(MemberReDataDTO memberReDataDTO);
+
     public MemberRePasswordDTO getShowpassworddata(Long userId);
 
 }
