@@ -14,8 +14,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/user")
-@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173/", "http://127.0.0.1:5173" })
+
+@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true")
+
 public class UserController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class UserController {
     private MailService mailService;
 
 
-    @RequestMapping("/login")
+    @RequestMapping("/user/login")
     public UserDto login(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
@@ -35,7 +36,7 @@ public class UserController {
 
         if(result != null) {
             userService.updateLastloginTime(result.getUserId());
-            session.setAttribute("loggedInUser", result);
+            session.setAttribute("loggedInMember", result);
         }else {
             throw new RuntimeException("登入失敗，帳號或密碼錯誤");
         }
@@ -43,13 +44,13 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping("/user/logout")
     public boolean logout(HttpSession session) {
         session.invalidate();
         return true;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public User register(
             @RequestParam("name") String username,
             @RequestParam("email") String email,
@@ -80,25 +81,24 @@ public class UserController {
     @RequestMapping("/check")
     public boolean checkLogin(HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
-
         return !Objects.isNull(loggedInUser);
     }
 
-    @RequestMapping("/getSession")
+    @RequestMapping("/user/getSession")
     public UserDto getSession(HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
         return loggedInUser;
     }
 
-    @RequestMapping("/mail/pwd")
+    @RequestMapping("/user/mail/pwd")
     public void sendPassword(@RequestParam("email") String email,
                              @RequestParam("phone") String phone) {
         mailService.sendPassword(email, phone);
 
     }
 
-    @RequestMapping("mail/verify")
+    @RequestMapping("/user/mail/verify")
     public void sendVerifyCode(@RequestParam("email") String email,
                                @RequestParam("verificationCode") String verificationCode) {
 

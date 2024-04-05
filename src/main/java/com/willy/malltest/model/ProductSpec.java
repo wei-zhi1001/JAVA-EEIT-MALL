@@ -16,6 +16,14 @@ import java.util.List;
 @Table(name = "product_spec")
 public class ProductSpec {
 
+    public ProductSpec() {
+        super();
+    }
+    public ProductSpec(String specId) {
+        super();
+        this.specId = specId;
+    }
+
     @Id
     @Column(name = "spec_id")
     private String specId;
