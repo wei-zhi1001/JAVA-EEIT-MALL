@@ -159,45 +159,16 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
     public com.willy.malltest.model.CustomerFeedback updateFeedbacksDTO(CustomerFeedbackDTO customerFeedbackDTO){
         com.willy.malltest.model.CustomerFeedback customerFeedback = new com.willy.malltest.model.CustomerFeedback();
 
-        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(),customerFeedbackDTO.getUserID());
+        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findById(customerFeedbackDTO.getFeedbackID()).orElse(null);
+
         if (existingcustomerFeedback == null) {
             System.out.println("existingcustomerFeedback不存在");
             return null;
         }
 
-        User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
-        if (user != null) {
-            existingcustomerFeedback.setUser(user);
-        } else {
-            // 如果找不到對應的 User，您可能希望進行錯誤處理或者返回 null 或者拋出異常
-            // 此處僅示例，您可以根據您的需求進行處理
-            System.out.println("找不到對應的使用者");
-            return null;
-        }
-
-        Orders orders = ordersRepository.findById(customerFeedbackDTO.getOrderID()).get();
-        if (orders != null) {
-            existingcustomerFeedback.setOrders(orders);
-        } else {
-            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
-            // 此處僅示例，您可以根據您的需求進行處理
-            System.out.println("找不到對應的產品規格");
-            return null;
-        }
-
-        OrdersDetail ordersDetail = ordersDetailRepository.findById(customerFeedbackDTO.getOrdersDetailId()).get();
-        if (ordersDetail != null) {
-            customerFeedback.setOrdersDetails(ordersDetail);
-        } else {
-            // 如果找不到對應的 ProductSpec，您可能希望進行錯誤處理或者返回 null 或者拋出異常
-            // 此處僅示例，您可以根據您的需求進行處理
-            System.out.println("找不到對應的產品規格");
-            return null;
-        }
-
         existingcustomerFeedback.setType(customerFeedbackDTO.getType());
         existingcustomerFeedback.setDescription(customerFeedbackDTO.getDescription());
-        existingcustomerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
+        existingcustomerFeedback.setFeedbackDate(customerFeedbackDTO.getFeedbackDate());
 
         return customerFeedbackRepository.save(existingcustomerFeedback); // 保存到資料庫中
 
