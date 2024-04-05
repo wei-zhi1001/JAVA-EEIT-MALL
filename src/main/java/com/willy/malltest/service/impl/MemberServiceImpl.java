@@ -91,10 +91,6 @@ public class MemberServiceImpl implements MemberService {
         }
         existingUser.setPassword(memberRePasswordDTO.getPassword());
 
-        existingUser.setUserId(existingUser.getUserId());
-        existingUser.setUserName(existingUser.getUserName());
-        existingUser.setEmail(existingUser.getEmail());
-
         String encodedPwd = pwdEncoder.encode(existingUser.getPassword()); // 加密
 
         existingUser.setPassword(encodedPwd);
