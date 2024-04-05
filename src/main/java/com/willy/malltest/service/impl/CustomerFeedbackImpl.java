@@ -107,6 +107,13 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
 
         com.willy.malltest.model.CustomerFeedback customerFeedback = new com.willy.malltest.model.CustomerFeedback();
 
+        System.out.println(customerFeedbackDTO.getUserID());
+        System.out.println(customerFeedbackDTO.getOrderID());
+        System.out.println(customerFeedbackDTO.getOrdersDetailId());
+        System.out.println(customerFeedbackDTO.getType());
+        System.out.println(customerFeedbackDTO.getDescription());
+        System.out.println(customerFeedbackDTO.getFeedbackDate());
+
         User user = usersRepository.findById(customerFeedbackDTO.getUserID()).orElse(null);
         if (user != null) {
             customerFeedback.setUser(user);
@@ -127,17 +134,6 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
             return null;
         }
 
-        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findCustomerFeedbackByByordersIdAnduserId(customerFeedbackDTO.getOrderID(), customerFeedbackDTO.getUserID());
-        if (existingcustomerFeedback != null) {
-            // 如果已經存在相同的 Track，您可以根據需要執行相應的處理，例如返回 null 或拋出異常
-            System.out.println("相同的 Track 已存在");
-            return null;
-        }
-        customerFeedback.setType(customerFeedbackDTO.getType());
-        customerFeedback.setDescription(customerFeedbackDTO.getDescription());
-        customerFeedback.setCustomerFeedbackStatus(customerFeedbackDTO.getCustomerFeedbackStatus());
-
-
         OrdersDetail ordersDetail = ordersDetailRepository.findById(customerFeedbackDTO.getOrdersDetailId()).get();
         if (ordersDetail != null) {
             customerFeedback.setOrdersDetails(ordersDetail);
@@ -147,11 +143,13 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
             System.out.println("找不到對應的產品規格");
             return null;
         }
-        com.willy.malltest.model.CustomerFeedback customerFeedback2 = customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
-        System.out.println(123);
-        System.out.println(customerFeedback2);
-        return customerFeedback2; // 保存到資料庫中
 
+        customerFeedback.setType(customerFeedbackDTO.getType());
+        customerFeedback.setDescription(customerFeedbackDTO.getDescription());
+        customerFeedback.setFeedbackDate(customerFeedbackDTO.getFeedbackDate());
+        customerFeedback.setCustomerFeedbackStatus("處理中");
+
+        return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
     }
 
 
