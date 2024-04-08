@@ -1,13 +1,9 @@
 package com.willy.malltest.service.impl;
 
-
-import com.willy.malltest.dto.CustomerFeedbackDTO;
 import com.willy.malltest.dto.MemberReDataDTO;
 import com.willy.malltest.dto.MemberRePasswordDTO;
-import com.willy.malltest.dto.TrackDTO;
 import com.willy.malltest.model.*;
 import com.willy.malltest.repository.MemberRepository;
-import com.willy.malltest.repository.UsersRepository;
 import com.willy.malltest.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,14 +17,10 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
-    private UsersRepository userRepository;
-
-    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
     private PasswordEncoder pwdEncoder;
-
 
     @Transactional(readOnly = true)
     public List<MemberReDataDTO> getAllMemberReDTOs() {

@@ -40,7 +40,8 @@ public class MemberOrdersImpl implements MemberOrders {
     public List<MemberShowOrdersDTO> getAllUserMemberOrders(Long userId) {
         List<Orders> orders = ordersRepository.findOrdersByUserId(userId);
         List<MemberShowOrdersDTO> memberShowOrdersDTO = new ArrayList<>();
-        for (Orders order : orders) { // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
+        for (Orders order : orders) {
+            // 使用 for-each 迴圈遍歷 List 中的每個 Track 對象
             // 对于每个订单，可能需要聚合订单详情中的信息
             MemberShowOrdersDTO dto = new MemberShowOrdersDTO();
 
@@ -75,26 +76,12 @@ public class MemberOrdersImpl implements MemberOrders {
     @Override
     @Transactional
     public void deleteMemberOrders(int orderId) {
-        Orders orders = new Orders();
-
-//        List<OrdersDetail> ordersDetails = ordersDetailRepository.findAllById(memberShowOrdersDTO.getOrderDetails().getOrderDetailId);
-//        Orders findOrders = ordersRepository.findById(memberShowOrdersDTO.getOrderId()).get();
-//        if (ordersDetails != null && findOrders != null) {
-//            ordersDetailRepository.deleteAll(ordersDetails);
-//            ordersRepository.delete(findOrders);
-//        } else {
-//            System.out.println("並沒有此訂單");
-//        }
-
         // 首先查找是否存在該訂單
         Optional<Orders> findOrdersOptional = ordersRepository.findById(orderId);
-
         if (findOrdersOptional.isPresent()) {
             Orders findOrders = findOrdersOptional.get();
-
             // 刪除該訂單的所有訂單詳情
             ordersDetailRepository.deleteAll(findOrders.getOrdersDetails());
-
             // 最後刪除訂單本身
             ordersRepository.delete(findOrders);
         } else {
