@@ -59,7 +59,7 @@ public class Orders {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders", cascade = CascadeType.ALL )
     @JsonIgnore
-    private List<OrdersDetail> ordersDetails = new ArrayList<>();
+    private List<OrdersDetail> ordersDetails;
 
     //test
     @OneToMany(mappedBy = "orders")

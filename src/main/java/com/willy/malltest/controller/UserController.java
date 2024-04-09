@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
 @RestController
-
-@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true")
-
+@RequestMapping("/user")
+@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173/", "http://127.0.0.1:5173" })
 public class UserController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class UserController {
     private MailService mailService;
 
 
-    @RequestMapping("/user/login")
+    @RequestMapping("/login")
     public UserDto login(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
@@ -36,7 +36,7 @@ public class UserController {
 
         if(result != null) {
             userService.updateLastloginTime(result.getUserId());
-            session.setAttribute("loggedInMember", result);
+            session.setAttribute("loggedInUser", result);
         }else {
             throw new RuntimeException("登入失敗，帳號或密碼錯誤");
         }
@@ -44,13 +44,13 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping("/user/logout")
+    @RequestMapping("/logout")
     public boolean logout(HttpSession session) {
         session.invalidate();
         return true;
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public User register(
             @RequestParam("name") String username,
             @RequestParam("email") String email,
@@ -81,24 +81,25 @@ public class UserController {
     @RequestMapping("/check")
     public boolean checkLogin(HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+
         return !Objects.isNull(loggedInUser);
     }
 
-    @RequestMapping("/user/getSession")
+    @RequestMapping("/getSession")
     public UserDto getSession(HttpSession session) {
         UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
 
         return loggedInUser;
     }
 
-    @RequestMapping("/user/mail/pwd")
+    @RequestMapping("/mail/pwd")
     public void sendPassword(@RequestParam("email") String email,
                              @RequestParam("phone") String phone) {
         mailService.sendPassword(email, phone);
 
     }
 
-    @RequestMapping("/user/mail/verify")
+    @RequestMapping("mail/verify")
     public void sendVerifyCode(@RequestParam("email") String email,
                                @RequestParam("verificationCode") String verificationCode) {
 
