@@ -49,7 +49,7 @@ public class MailServiceImpl implements MailService {
             return;
         }
 
-        //////////////////////////////////////////////
+
 
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         int length = 10;
