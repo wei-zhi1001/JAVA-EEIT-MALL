@@ -2,10 +2,7 @@ package com.willy.malltest.service.impl;
 
 import com.willy.malltest.dto.CartDto;
 import com.willy.malltest.model.*;
-import com.willy.malltest.repository.CartRepository;
-import com.willy.malltest.repository.ProductPhotoRepository;
-import com.willy.malltest.repository.ProductRepository;
-import com.willy.malltest.repository.ProductSpecRepository;
+import com.willy.malltest.repository.*;
 import com.willy.malltest.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -26,6 +23,8 @@ public class CartServiceImpl implements CartService {
     private ProductRepository productRepository;
     @Autowired
     private ProductPhotoRepository productPhotoRepository;
+    @Autowired
+    private UsersRepository usersRepository;
     @Override
     public CartItems addToCart(Long userId, String specId){
         User user = new User(userId);
@@ -84,5 +83,10 @@ public class CartServiceImpl implements CartService {
             cartItem.setQuantity(cartDto.getQuantity());
             cartRepository.save(cartItem);
         }
+    }
+    @Override
+    public void clearCartByUserId(Long userId) {
+        Optional<User> user = usersRepository.findById(userId);
+        user.ifPresent(cartRepository::deleteByUser);
     }
 }

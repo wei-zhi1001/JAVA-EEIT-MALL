@@ -180,16 +180,11 @@ public class ProductController {
     // 獲取所有產品圖片的 Controller 端
     @GetMapping("/photos/image/{photoId}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable Integer photoId) {
-
         ProductPhoto photos = productService.findProductPhotoByPhotoId(photoId);
-
         byte[] photoByte = photos.getPhotoFile();
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
-
         return new ResponseEntity<byte[]>(photoByte, headers, HttpStatus.OK);
     }
-
 }
 

@@ -3,6 +3,7 @@ package com.willy.malltest.controller;
 import com.willy.malltest.dto.CartDto;
 import com.willy.malltest.dto.UserDto;
 import com.willy.malltest.model.CartItems;
+import com.willy.malltest.model.User;
 import com.willy.malltest.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@CrossOrigin(origins = "http://localhost:8081", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CartController{
     @Autowired
     CartService cartService;
@@ -32,18 +33,18 @@ public class CartController{
     @GetMapping("/cart")
     public List<CartDto> getCartByUserId(HttpSession session) {
 //        @PathVariable Long userId
-        UserDto loggedInMember = (UserDto) session.getAttribute("loggedInMember");
-        List<CartDto> cart = cartService.findCartByUserId(loggedInMember.getUserId());
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+        List<CartDto> cart = cartService.findCartByUserId(loggedInUser.getUserId());
         return cart;
     }
 
     @DeleteMapping("/cart/item/{cartItemId}")
     public ResponseEntity<?> deleteCartItem(@PathVariable Integer cartItemId, HttpSession session) {
-//        UserDto loggedInMember = (UserDto) session.getAttribute("loggedInMember");
-//
-//        if (loggedInMember == null) {
-//            returegen ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("用户未登录");
-//        }
+        UserDto loggedInUser = (UserDto) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in!");
+        }
 
         try {
             boolean isDeleted = cartService.deleteCartItem(cartItemId);
@@ -63,5 +64,14 @@ public class CartController{
         cartDto.setCartItemId(cartItemId); // 确保DTO中的cartItemId正确设置
         cartService.updateCartItemQuantity(cartDto);
         return ResponseEntity.ok("Cart item quantity updated successfully.");
+    }
+    @DeleteMapping("/cart/clear/{userId}")
+    public ResponseEntity<?> clearCart(@PathVariable Long userId) {
+        try {
+            cartService.clearCartByUserId(userId);
+            return ResponseEntity.ok("Cart cleared successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to clear cart: " + e.getMessage());
+        }
     }
 }
