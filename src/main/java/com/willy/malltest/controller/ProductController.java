@@ -1,26 +1,20 @@
 package com.willy.malltest.controller;
 
 
-import ch.qos.logback.core.model.Model;
+import com.willy.malltest.dto.ProductDto;
 import com.willy.malltest.model.Category;
 import com.willy.malltest.model.Product;
 import com.willy.malltest.model.ProductPhoto;
 import com.willy.malltest.model.ProductSpec;
 import com.willy.malltest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(allowCredentials = "true", origins = {"http://localhost:5173/", "http://127.0.0.1:5173"})
@@ -35,11 +29,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/products/getProductByCategoryId")
 
-    public List<Product> getProductByCategoryId(@RequestParam String categoryId) {
-        return productService.getProductByCategoryId(categoryId);
-    }
 
     @GetMapping("/products/getProductById")
     public Product getProductById(String productId) {
@@ -51,21 +41,7 @@ public class ProductController {
 //        return productService.insertProduct(product);
 //    }
 
-    @PostMapping("/products/insertExm")
-    public Product insertExm() {
-        Category cat = new Category("A", "iPhone");
 
-        Product pro = new Product();
-        pro.setProductId("A1402");
-        pro.setProductName("iPhone 14 128G");
-        pro.setProductDescription("6.1 吋 2,532 x 1,170pixels 解析度超 Retina XDR 顯示器，搭載 OLED 螢幕面板，支援原彩顯示、電影級 P3 標準廣色域；顯示 HDR 內容時，螢幕亮度最高可達 1,200nits。");
-        pro.setCategory(cat);
-
-        pro.setPrice(25900);
-        pro.setModifyDate(new Date());
-        pro.setSetupDate(new Date());
-        return productService.insertProduct(pro);
-    }
 
     @PostMapping("/products/insertPhone")
     public Product insertPhone(@RequestBody Product p) {
@@ -97,7 +73,7 @@ public class ProductController {
         return productService.insertProduct(p);
     }
 
-    @PutMapping("/products/updateProduct/{productId}")
+    @PutMapping("/products/updateProduct/{productID}")
     public Product updateProduct(@PathVariable String productId, @RequestBody Product updatedProduct) {
         System.out.println(productId);
         // 不需要转换为字符串
@@ -154,16 +130,41 @@ public class ProductController {
     public List<ProductSpec> findProductSpecByProductId(String productId) {
         return productService.findProductSpecByProductId(productId);
     }
+    // 根據商品頁面取得商品Dto
+    @GetMapping("/products/{pageNumber}")
+    public Page<ProductDto> findProductByPage(@PathVariable Integer pageNumber) {
+        return productService.findProductByPage(pageNumber);
+    }
+    //模糊查詢產品
+    @GetMapping("/products/findFilterProductByPage/{pageNumber}")
+    public Page<ProductDto> findFilterProductByPage(@PathVariable Integer pageNumber, @RequestParam String productName){
+        return productService.findFilterProductByPage(pageNumber, productName);
+    }
 
+    @GetMapping(path = "/product/photo/{id}", produces = "image/*")
+    public byte[] findProductPhotoById(@PathVariable Integer id) {
+
+        return productService.findProductPhotoById(id)	;
+    }
+    @GetMapping("/products/getProductByCategoryId")
+
+    public List<Product> getProductByCategoryId(@RequestParam String categoryId) {
+        return productService.getProductByCategoryId(categoryId);
+    }
+
+    @GetMapping("/products/findProductsByCategoryId")   //搜尋不同category的商品用DTO
+    public Page<ProductDto> findProductsByCategoryId(@RequestParam String categoryId, @RequestParam Integer pageNumber) {
+        Page<ProductDto> productDtos = productService.findProductsByCategoryId(categoryId, pageNumber);
+        return productDtos;
+    }
 
     @PostMapping("/products/insertProductPhoto")
-    public String insertProductPhoto(@RequestParam String specId, @RequestBody MultipartFile file, Model model) {
+    public String insertProductPhoto(@RequestParam String specId, @RequestBody MultipartFile file) {
 
         try {
             if (file.isEmpty()) {
                 return "ProductPhoto is empty";
             }
-
             ProductPhoto productPhoto = new ProductPhoto();
             productPhoto.setPhotoFile(file.getBytes());
             productPhoto.setProductSpec(productService.findProductSpecBySpecId(specId));
@@ -172,19 +173,21 @@ public class ProductController {
             e.printStackTrace(); // 您可能希望適當地記錄例外情況或根據應用程式的需要進行處理
             return "error"; // 假設 "error" 是表示發生錯誤的邏輯視圖名稱
         }
-
         return "success";
     }
 
+    //用specId調用照片
+    @GetMapping(path = "/productSpec/photo/{specId}", produces = "image/*")
+    public byte[] findProductPhotoBySpecId(@PathVariable String specId) {
 
-    // 獲取所有產品圖片的 Controller 端
-    @GetMapping("/photos/image/{photoId}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable Integer photoId) {
-        ProductPhoto photos = productService.findProductPhotoByPhotoId(photoId);
-        byte[] photoByte = photos.getPhotoFile();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        return new ResponseEntity<byte[]>(photoByte, headers, HttpStatus.OK);
+        return productService.findProductPhotoByProductSpecId(specId)	;
     }
-}
+    //模糊查詢分類產品名稱
+    @GetMapping("/products/searchProduct/{pageNumber}")
+    public Page<ProductDto> findFilterCategoryAndProductByPage(@PathVariable Integer pageNumber, @RequestParam String productName, @RequestParam String categoryId) {
+        return productService.findFilterCategoryAndProductByPage(pageNumber, productName, categoryId);
+    }
 
+
+
+}

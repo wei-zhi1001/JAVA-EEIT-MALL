@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProductPhotoRepository extends JpaRepository<ProductPhoto, Integer> {
-    List<ProductPhoto> findProductPhotoByProductSpec(ProductSpec productSpec);
+    List<ProductPhoto> findByProductSpec(ProductSpec productSpec);
 }

@@ -26,13 +26,13 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private UsersRepository usersRepository;
     @Override
-    public CartItems addToCart(Long userId, String specId){
+    public CartItems addToCart(Long userId, String specId, int quantity){
         User user = new User(userId);
         ProductSpec spec = new ProductSpec(specId);
 
         CartItems cartItems = cartRepository.findByUserAndProductSpec(user,spec);
         if (cartItems != null){
-            cartItems.setQuantity(cartItems.getQuantity()+1);
+            cartItems.setQuantity(quantity);
         }
         if (cartItems == null){
             cartItems = new CartItems();
@@ -42,7 +42,6 @@ public class CartServiceImpl implements CartService {
         }
         CartItems saveCartItems = cartRepository.save(cartItems);
         return saveCartItems;
-
     }
 
     @Override
@@ -60,7 +59,7 @@ public class CartServiceImpl implements CartService {
             cartDto.setCartItemId(cartItem.getCartItemId());
             cartDto.setSpecId(cartItem.getProductSpec().getSpecId());
             cartDto.setQuantity(cartItem.getQuantity());
-            List<ProductPhoto> productPhotos= productPhotoRepository.findProductPhotoByProductSpec(productSpec);
+            List<ProductPhoto> productPhotos= productPhotoRepository.findByProductSpec(productSpec);
             if (productPhotos != null && productPhotos.size() != 0) {
                  ProductPhoto productPhoto = productPhotos.get(0);
                  cartDto.setProductPhotoId(productPhoto.getPhotoId());

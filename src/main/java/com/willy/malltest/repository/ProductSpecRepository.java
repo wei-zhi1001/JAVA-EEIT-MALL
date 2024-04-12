@@ -9,9 +9,13 @@ import java.util.List;
 
 public interface ProductSpecRepository extends JpaRepository<ProductSpec, String> {
 
-    List<ProductSpec> findProductSpecByProduct(Product product);
-    ProductSpec findProductSpecBySpecId(String specId);}
 
+  List<ProductSpec> findProductSpecByProduct(Product product);
+
+ProductSpec findProductSpecBySpecId(String specId);
+
+
+}
 
 
 

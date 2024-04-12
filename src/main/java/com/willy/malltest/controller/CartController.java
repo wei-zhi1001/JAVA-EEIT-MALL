@@ -19,14 +19,14 @@ public class CartController{
     CartService cartService;
 
     @PostMapping("/cart/add")
-    public CartItems addToCart(@RequestParam String specId,
-                               @RequestParam Long userId) {
-//        , HttpSession session
-//        UserDto loggedInUser = (UserDto) session.getAttribute("LoggedInUser");
-//        if (loggedInUser == null) {
-//            throw new RuntimeException("Please log in.");
-//        }
-      CartItems addToCart = cartService.addToCart(userId,specId);
+    public CartItems addToCart(@RequestParam String specId, @RequestParam int quantity,HttpSession session) {
+//
+//        @RequestParam String specId,@RequestParam Long userId
+        UserDto loggedInUser = (UserDto) session.getAttribute("LoggedInUser");
+        if (loggedInUser == null) {
+            throw new RuntimeException("Please log in.");
+        }
+      CartItems addToCart = cartService.addToCart(loggedInUser.getUserId(),specId, quantity);
         return addToCart;
     }
 
