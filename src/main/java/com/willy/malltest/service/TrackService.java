@@ -12,7 +12,11 @@ public interface TrackService {
 
     public List<TrackShowDTO> getShowTrackDTOs(Long userId);
 
-    public Track addTrack(String specID, Long userId);
+    public boolean getCheckTrackDTO(Long userId,List<String> specId);
+
+    public boolean addTrack(String specID, Long userId);
 
     public void deleteTrack(String specID, Long userId);
+
+
 }

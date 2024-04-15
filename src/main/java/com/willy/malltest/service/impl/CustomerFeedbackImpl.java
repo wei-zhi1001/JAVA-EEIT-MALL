@@ -78,23 +78,32 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
 
             showCustomerFeedbacksDTO.setFeedbackID(customerFeedback.getFeedbackID());
             showCustomerFeedbacksDTO.setUserID(customerFeedback.getUser().getUserId());
-            showCustomerFeedbacksDTO.setOrderID(customerFeedback.getOrders().getOrderId());
             showCustomerFeedbacksDTO.setType(customerFeedback.getType());
             showCustomerFeedbacksDTO.setFeedbackDate(customerFeedback.getFeedbackDate());
             showCustomerFeedbacksDTO.setDescription(customerFeedback.getDescription());
             showCustomerFeedbacksDTO.setCustomerFeedbackStatus(customerFeedback.getCustomerFeedbackStatus());
 
+            Orders orders = customerFeedback.getOrders();
+            if (orders != null) {  // 檢查 orders 是否為 null
+                showCustomerFeedbacksDTO.setOrderID(orders.getOrderId());
 
             List<String> productNames = new ArrayList<>();
             List<Integer> prices = new ArrayList<>();
+            List<Integer> quantities = new ArrayList<>();
 
             for (OrdersDetail ordersDetail : customerFeedback.getOrders().getOrdersDetails()) {
                 productNames.add(ordersDetail.getProductSpec().getProduct().getProductName());
                 prices.add(ordersDetail.getProductSpec().getProduct().getPrice());
+                quantities.add(ordersDetail.getQuantity());
             }
 
             showCustomerFeedbacksDTO.setProductNames(productNames);
             showCustomerFeedbacksDTO.setPrices(prices);
+            showCustomerFeedbacksDTO.setQuantities(quantities);
+            } else {
+                // 可以設置為預設值或處理 null 的情況
+                showCustomerFeedbacksDTO.setOrderID(null);
+            }
 
             showCustomerFeedbacksDTOs.add(showCustomerFeedbacksDTO);
         }
@@ -147,7 +156,7 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
         customerFeedback.setType(customerFeedbackDTO.getType());
         customerFeedback.setDescription(customerFeedbackDTO.getDescription());
         customerFeedback.setFeedbackDate(customerFeedbackDTO.getFeedbackDate());
-        customerFeedback.setCustomerFeedbackStatus("處理中");
+        customerFeedback.setCustomerFeedbackStatus("等待回覆中");
 
         return customerFeedbackRepository.save(customerFeedback); // 保存到資料庫中
     }
@@ -171,6 +180,49 @@ public class CustomerFeedbackImpl implements CustomerFeedback {
         return customerFeedbackRepository.save(existingcustomerFeedback); // 保存到資料庫中
 
     }
+
+    @Override
+    @Transactional
+    public com.willy.malltest.model.CustomerFeedback test(CustomerFeedbackDTO customerFeedbackDTO) {
+        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findById(customerFeedbackDTO.getFeedbackID()).orElse(null);
+
+        if (existingcustomerFeedback == null) {
+            System.out.println("existingcustomerFeedback不存在");
+            return null;
+        }
+        existingcustomerFeedback.setCustomerFeedbackStatus("已結案");
+        System.out.println(existingcustomerFeedback.getCustomerFeedbackStatus());
+        return customerFeedbackRepository.save(existingcustomerFeedback); // 保存到資料庫中
+    }
+
+
+//
+//
+//    @Transactional
+//    public com.willy.malltest.model.CustomerFeedback updateCustomerFeedbacksStatus(CustomerFeedbackDTO customerFeedbackDTO){
+//        com.willy.malltest.model.CustomerFeedback existingcustomerFeedback = customerFeedbackRepository.findById(customerFeedbackDTO.getFeedbackID()).orElse(null);
+//
+//        if (existingcustomerFeedback == null) {
+//            System.out.println("existingcustomerFeedback不存在");
+//            return null;
+//        }
+//        existingcustomerFeedback.setCustomerFeedbackStatus("已結案");
+//
+//        return customerFeedbackRepository.save(existingcustomerFeedback); // 保存到資料庫中
+//
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void deleteCustomerFeedback(CustomerFeedbackDTO customerFeedbackDTO) {
