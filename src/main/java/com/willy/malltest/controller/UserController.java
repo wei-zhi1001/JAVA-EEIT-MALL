@@ -16,7 +16,7 @@ import java.util.Objects;
 
 
 @RestController
-@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173/", "http://127.0.0.1:5173" })
+@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173","http://localhost:3000" })
 public class UserController {
 
     @Autowired
@@ -104,7 +104,7 @@ public class UserController {
 
         mailService.sendVerifyCode(email, verificationCode);
     }
-    @PostMapping("/registerAdmin")
+    @PostMapping("/user/registerAdmin")
     public User registerAdmin(@RequestParam("name") String username, @RequestParam("email") String email, @RequestParam("phone") String phone, @RequestParam("password") String password) {
 
         boolean isExist = userService.checkIfUsernameExist(email);
@@ -129,32 +129,32 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getAllUsers")
+    @GetMapping("/user/getAllUsers")
     public List<User> getAllUsers() {
 
         return userService.getAllUsers();
     }
 
-    @PutMapping("/banUser")
+    @PutMapping("/user/banUser")
     public String banUser(@RequestParam("id") Long id) {
 
         User user= userService.banUser(id);
         return "UserName:"+user.getUserName()+ " success ban!";
     }
 
-    @PutMapping("/unbanUser")
+    @PutMapping("/user/unbanUser")
     public String unbanUser(@RequestParam("id") Long id) {
         User user=userService.unbanUser(id);
         return "UserName:"+user.getUserName()+ " success restore!";
     }
 
-    @DeleteMapping("/deleteUser")
+    @DeleteMapping("/user/deleteUser")
     public String deleteUser(@RequestParam("id") Long id) {
 
         return userService.deleteUser(id);
     }
 
-    @GetMapping("/findNameById")
+    @GetMapping("/user/findNameById")
     public String findNameById(@RequestParam("id") Long id) {
 
         return userService.findNameById(id);

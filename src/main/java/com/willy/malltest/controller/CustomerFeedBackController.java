@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(allowCredentials = "true", origins = { "http://localhost:5173","http://localhost:3000" })
+
 public class CustomerFeedBackController {
     @Autowired
     private UserService userService;

@@ -14,16 +14,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     @Query("SELECT p FROM Product p INNER JOIN p.category c WHERE c.categoryId = :Id")
     List<Product> findByCategoryCategoryId(String Id);
-    Page<Product> findByCategoryCategoryId2(String Id, Pageable pageable);
-
-    List<Product> findByProductName(String productName);
-
-    Product findProductsByProductId(String productId);
 
     List<Product> findProductsByCategory(Category category);
 
 
-
+    @Query("SELECT p FROM Product p WHERE p.productId = :productId")
+    Product findProductsByProductId(String productId);
+    Page<Product> findByCategoryCategoryId(String categoryId, Pageable pageable);
 
     @Query("SELECT p FROM Product p WHERE REPLACE(p.productName, ' ', '') LIKE %:productName%")
     Page<Product> findByProductName(String productName, Pageable pageable);

@@ -126,7 +126,7 @@ public class MailServiceImpl implements MailService{
                 "<p>" + returnMessage + "</p>" +
                 "<br/>"+
                 "<p>如果您對我們的服務有任何疑問或需要進一步的幫助，請隨時聯繫我們的<b>Apple Tree</b>客服團隊，我們將竭誠為您服務。</p>" +
-                "<p>如果問題已解決，請至會員中心點擊「<a href=\"https://www.youtube.com/\">問題已解決</a>」，謝謝您的配合</p>"+
+                "<p>如果問題已解決，請至會員中心點擊「<a href=\"http://localhost:5173/MemberCenter/MemberFeedback/\">問題已解決</a>」，謝謝您的配合</p>"+
                 "<p><b>Apple Tree</b> 客戶服務中心 敬上</p>" +
                 "<br>時間: " +formattedDate+ "</br>" +
                 "<br>姓名: " + userName + "</br>" +

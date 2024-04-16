@@ -149,7 +149,7 @@ public class ProductService {
     // 根据产品类别ID分页搜索商品并进行二次封装
     public Page<ProductDto> findProductsByCategoryId(String categoryId, Integer pageNumber) {
         Pageable page = PageRequest.of(pageNumber, 6);
-        Page<Product> products = productRepository.findByCategoryCategoryId2(categoryId, page); // 根据产品类别ID进行过滤
+        Page<Product> products = productRepository.findByCategoryCategoryId(categoryId, page); // 根据产品类别ID进行过滤
 
         Page<ProductDto> productDtos = products.map(p -> {
             ProductDto pt = new ProductDto();
